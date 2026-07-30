@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout | Fruitiva</title>
+  <link rel="stylesheet" href="checkout.css" />
+  <link rel="stylesheet" href="shared.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <script src="products.js"></script>
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<div class="top-bar">
+    <div class="top-left">
+        <span><i class="fa-solid fa-truck"></i> We deliver everywhere in KGL</span>
+        <span><i class="fa-solid fa-phone"></i> 0783628833</span>
+        <a href="https://www.instagram.com/freshy_board?igsh=MjNmemVvYXNna2Y1" target="_blank" rel="noopener" class="ig-link"><i class="fa-brands fa-instagram"></i> freshy_board</a>
+    </div>
+    <div class="top-right">
+        <a href="login.html?tab=login"><i class="fa-regular fa-user"></i> Login</a> / <a href="login.html?tab=register">Create Account</a>
+        <a href="wishlist.html"><i class="fa-regular fa-heart"></i> Wishlist</a>
+        <select aria-label="Currency Selector">
+            <option>USD</option>
+            <option>FRW</option>
+            <option>EUR</option>
+        </select>
+    </div>
+</div>
+
+<!-- ================= MAIN NAVBAR ================= -->
+<div class="main-nav">
+    <div class="logo">
+        <a href="home.html" class="logo" aria-label="Fresh Link home">
+            <img src="logo-removebg-preview.png" alt="Fresh Link logo">
+        </a>
+    </div>
+    <div class="search-bar">
+        <input type="text" placeholder="Search for products...">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+    <a href="cart.html" class="cart-box">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="cart-amount">$0.00</span>
+    </a>
+</div>
+
+<!-- ================= LOWER NAV ================= -->
+<div class="lower-nav">
+    <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="aboutt.html">About Us</a></li>
+        <li><a href="shopp.html">Shop</a></li>
+        <li><a href="subscription.html">Subscription</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="highlight-links">
+        <a href="shopp.html?filter=recommended" class="recommended">Recommended</a>
+        <a href="shopp.html?filter=special" class="offer">Special Offer</a>
+    </div>
+</div>
+
+<section class="checkout-section">
+   <div class="checkout-overlay">
+  <h1 class="checkout-title">Secure Checkout</h1>
+
+  <div class="checkout-container">
+
+    <!-- LEFT -->
+    <div class="checkout-left">
+      <h3 class="section-title">Personal Information</h3>
+
+      <form id="checkoutForm" method="POST">
+        <input type="hidden" name="_subject" value="New Grocery Order">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="email" id="email" name="email" placeholder="Email address" required>
+        <small class="error" id="emailError"></small>
+
+        <div class="input-row">
+          <input type="text" id="firstName" name="firstName" placeholder="First name" required>
+          <input type="text" id="lastName" name="lastName" placeholder="Last name" required>
+        </div>
+
+        <input type="tel" id="phone" name="phone" placeholder="Phone number" required>
+
+        <h4 class="location-title">Delivery Location</h4>
+
+        <div class="input-row">
+          <input type="text" id="district" name="district" placeholder="District" required>
+          <input type="text" id="sector" name="sector" placeholder="Sector" required>
+        </div>
+
+        <div class="input-row">
+          <input type="text" id="cell" name="cell" placeholder="Cell" required>
+          <input type="text" id="village" name="village" placeholder="Village" required>
+        </div>
+
+        <input type="text" id="gate" name="gate" placeholder="Gate / House Number">
+
+        <div class="note-box">
+          <label>
+            <input type="checkbox" id="addNote" name="addNote"> Add a note to your order
+          </label>
+          <textarea id="noteField" name="note" placeholder="Write delivery instructions..."></textarea>
+        </div>
+      </form>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="checkout-right">
+      <h3 class="section-title">Order Summary</h3>
+      <div id="checkout-items" class="checkout-items-list"></div>
+      <div class="checkout-totals">
+        <div class="summary-row"><span>Subtotal</span><span id="checkout-subtotal">$0.00</span></div>
+        <div class="summary-row"><span>Delivery</span><span id="checkout-delivery">$1.50</span></div>
+        <div class="summary-row total"><span>Total</span><span id="checkout-total">$0.00</span></div>
+      </div>
+
+      <h3 class="section-title" style="margin-top: 24px;">Payment Method</h3>
+
+      <label class="payment-option">
+        <input type="radio" name="payment" value="momo" required>
+        <img src="momo-logo.png" alt="MTN MoMo">
+        <div>
+          <strong>MTN MoMo</strong>
+          <p>*182*8*1*1234#</p>
+        </div>
+      </label>
+
+      <label class="payment-option">
+        <input type="radio" name="payment" value="airtel">
+        <img src="airtel-logo.png" alt="Airtel Money">
+        <div>
+          <strong>Airtel Money</strong>
+          <p>*182*8*1*1234#</p>
+        </div>
+      </label>
+
+      <label class="payment-option">
+        <input type="radio" name="payment" value="bank">
+        <img src="bank-logo.png" alt="Bank Transfer">
+        <div>
+          <strong>Bank Transfer</strong>
+          <p>Account: 1234 5678</p>
+        </div>
+      </label>
+
+      <label class="payment-option">
+        <input type="radio" name="payment" value="cod">
+        <img src="cash-logo.png" alt="Cash on Delivery">
+        <div>
+          <strong>Cash on Delivery</strong>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <div class="terms-box">
+    <label>
+      <input type="checkbox" id="termsAgree" required>
+      I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>
+    </label>
+  </div>
+
+  <div class="checkout-buttons">
+    <a href="cart.html" class="return-btn">← Return to Cart</a>
+    <button type="submit" form="checkoutForm" class="place-btn" id="placeOrderBtn">Place Order</button>
+  </div>
+</div>
+</section>
+
+<!-- THANK YOU MODAL -->
+<div id="thankyou-modal" class="checkout-modal hidden">
+  <div class="checkout-modal-box">
+    <div class="checkout-modal-icon"><i class="fas fa-check-circle"></i></div>
+    <h3>Thank You for Your Order!</h3>
+    <p>Your fresh groceries are on their way. We appreciate your trust in Fruitiva.</p>
+    <button id="thankyou-home-btn" class="place-btn">Back to Home</button>
+  </div>
+</div>
+
+<footer class="site-footer">
+    <div class="footer-widgets">
+      <div class="container">
+        <div class="footer-columns">
+          <div class="footer-column">
+            <h4>Help</h4>
+            <ul>
+              <li><a href="orders.html">How to Make an Order?</a></li>
+              <li><a href="delivery.html">Delivery Terms</a></li>
+              <li><a href="myorders.html">My Orders</a></li>
+              <li><a href="return.html">Return Policy</a></li>
+              <li><a href="aboutt.html">About Us</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Shop</h4>
+            <ul>
+              <li><a href="shopp.html">Products</a></li>
+              <li><a href="cart.html">Cart</a></li>
+              <li><a href="wishlist.html">Wishlist</a></li>
+              <li><a href="contact.html">Contacts</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Categories</h4>
+            <ul>
+              <li><a href="shopp.html?filter=Fruits">Fruits</a></li>
+              <li><a href="shopp.html?filter=Vegetables">Vegetables</a></li>
+              <li><a href="shopp.html?filter=Dairy">Dairy</a></li>
+              <li><a href="shopp.html?filter=Bakery">Bakery</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-inner">
+          <div class="copyright">
+            <span class="circle-icon">✓</span>
+            Privacy Policy / © 2026 Fruitiva Fresh Grocery – All Rights Reserved
+          </div>
+          <a href="https://www.instagram.com/freshy_board?igsh=MjNmemVvYXNna2Y1" target="_blank" rel="noopener" class="footer-instagram-link">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Follow us on Instagram</span>
+          </a>
+        </div>
+      </div>
+    </div>
+</footer>
+
+<script src="checkout.js"></script>
+</body>
+</html>

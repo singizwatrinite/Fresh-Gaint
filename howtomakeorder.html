@@ -1,0 +1,207 @@
+
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Make Orders</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Inter', sans-serif;
+    }
+
+    body{
+      background:#f5f7fa;
+      color:rgb(29, 71, 22);
+      
+    }
+
+    /* HERO SECTION */
+    .hero{
+      position:relative;
+      height:85vh;
+      background:url('istockphoto-1217134622-612x612.jpg') center/cover no-repeat;
+      display:flex;
+      align-items:center;
+      padding:0 8%;
+      overflow:hidden;
+    }
+
+    /* blue blur overlay */
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(6, 42, 95, 0.75);
+      backdrop-filter: blur(4px);
+      z-index:1;
+    }
+
+    /* black bottom fade */
+    .hero::after{
+      content:"";
+      position:absolute;
+      bottom:0;
+      left:0;
+      right:0;
+      height:35%;
+      background:linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+      z-index:2;
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:3;
+      max-width:700px;
+      color:#ffffff;
+    }
+
+    .hero h1{
+      font-size:3.5rem;
+      font-weight:800;
+      line-height:1.1;
+      margin-bottom:20px;
+    }
+
+    .hero .underline{
+      width:90px;
+      height:4px;
+      background:#e11d2e;
+      margin-bottom:22px;
+    }
+
+    .hero p{
+      font-size:1.1rem;
+      font-weight:400;
+      opacity:0.95;
+      max-width:520px;
+    }
+
+    /* ORDER SECTION */
+    .orders{
+      padding:80px 8%;
+      
+      
+    background: linear-gradient(
+        135deg,
+        #8b0000,
+        #b11226,
+        #e10600
+    );
+    }
+
+    .orders h2{
+      font-size:2.4rem;
+      font-weight:800;
+      margin-bottom:12px;
+      color:#f5f7fa;
+    }
+
+    .orders .sub{
+      color:gainsboro;
+      max-width:650px;
+      margin-bottom:50px;
+      font-size:1.05rem;
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+      gap:30px;
+    }
+
+    .step{
+      background:#f8fafc;
+      border-radius:14px;
+      padding:30px 26px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.05);
+      transition:transform 0.3s ease;
+    }
+
+    .step:hover{
+      transform:translateY(-6px);
+    }
+
+    .step span{
+      display:inline-block;
+      background:#062a5f;
+      color:#fff;
+      font-weight:700;
+      padding:6px 14px;
+      border-radius:20px;
+      font-size:0.85rem;
+      margin-bottom:16px;
+    }
+
+    .step h3{
+      font-size:1.3rem;
+      margin-bottom:10px;
+    }
+
+    .step p{
+      color:#555;
+      font-size:0.95rem;
+      line-height:1.6;
+    }
+
+    @media(max-width:768px){
+      .hero h1{font-size:2.6rem;}
+      .orders h2{font-size:2rem;}
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>How to Make Your Order</h1>
+      <div class="underline"></div>
+      <p>A simple step-by-step guide to help you place your order quickly and confidently.</p>
+    </div>
+  </section>
+
+  <!-- ORDERS -->
+  <section class="orders">
+    <h2>Order Process</h2>
+    <p class="sub">Follow these easy steps to complete your order smoothly, from product selection to final confirmation.</p>
+
+    <div class="steps">
+      <div class="step">
+        <span>Step 1</span>
+        
+        <h3>Choose a Product</h3>
+        <p>Browse our catalog and select the product that best fits your needs.</p>
+      </div>
+
+      <div class="step">
+        <span>Step 2</span>
+        <h3>Add to Cart</h3>
+        <p>Add your selected product to the cart and review the quantity and details.</p>
+      </div>
+
+      <div class="step">
+        
+        <span>Step 3</span>
+        
+        <h3>Provide Details</h3>
+        <p>Enter delivery information and make sure all details are correct.</p>
+      </div>
+
+      <div class="step">
+        <span>Step 4</span>
+        <h3>Confirm & Pay</h3>
+        <p>Confirm your order and complete the payment securely.</p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

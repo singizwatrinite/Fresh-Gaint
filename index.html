@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0; url=home.html">
+    <title>Fruitiva | Fresh Grocery</title>
+    <script>window.location.replace("home.html");</script>
+    <link rel="stylesheet" href="style.css">
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<div class="top-bar">
+    <div class="top-left">
+        <i class="fa-solid fa-fire"></i>
+        <span>Free delivery in Kigali</span>
+    </div>
+
+    <div class="top-right">
+        <span><i class="fa-solid fa-phone"></i> 0788309471</span>
+        <span><i class="fa-brands fa-instagram"></i> @fruitiva</span>
+    </div>
+</div>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+    <!-- Logo -->
+    <div class="logo">
+    <a href="#" class="logo" aria-label="Fresh Link home">
+        <img src="logo-removebg-preview.png" alt="Fresh Link logo">
+    </a>
+</div>
+
+
+    <!-- Navigation Links -->
+    <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="more-products.html">Shop</a></li>
+<li><a href="more-products.html?category=bundles">Bundles</a></li>
+<li><a href="more-products.html?category=recommended">Recommendations</a></li>
+
+    <li><a href="contact.html">Contact</a></li>
+
+</ul>
+
+
+    <!-- Search -->
+    <div class="search-box">
+        <input type="text" placeholder="Search fruits & bundles...">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+
+    <!-- Right Actions -->
+    <div class="nav-actions">
+        <select class="currency">
+            <option>FRW</option>
+            <option>USD</option>
+            <option>EUR</option>
+        </select>
+
+        <a href="cart.html" target="_blank" rel="noopener" class="cart-link">
+    <i class="fa-solid fa-cart-shopping cart-icon"></i>
+</a>
+
+<a href="login-style.html" class="login-link">
+    <button class="login-btn">Login</button>
+</a>
+
+    </div>
+</nav>
+
+
+
+<!-- ================= HERO SECTION ================= -->
+<section class="hero">
+
+    <div class="hero-slider" id="heroSlider">
+
+        <!-- SLIDE 1 -->
+        <div class="hero-slide">
+            <img src="home1.jpg" alt="Fresh fruits">
+            <div class="hero-content">
+                <h1>Welcome to Fruitiva</h1>
+                <p>Handpicked, high-quality fruits delivered to your door.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 2 -->
+        <div class="hero-slide">
+            <img src="home2.jpg" alt="Family fruits">
+            <div class="hero-content">
+                <h1>From Fork to Family</h1>
+                <p>Freshness and family-friendly service.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 3 -->
+        <div class="hero-slide">
+            <img src="home3.png" alt="Fast order">
+            <div class="hero-content">
+                <h1>By Press, the Order is Ready</h1>
+                <p>Fast and easy ordering.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FIXED CTA BUTTON -->
+    <a href="more-products.html" class="hero-btn">Order Now</a>
+
+
+</section>
+
+
+
+
+
+<!-- ================= SHOP SECTION ================= -->
+<section class="shop" id="shop">
+    <h2>Our Fresh Picks</h2>
+
+    <div class="carousel-container">
+        <!-- Carousel viewport -->
+        <div class="carousel-wrapper" id="carouselWrapper">
+            <!-- Product cards -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="images/apple.jpg" alt="Fresh Apple">
+                    <div class="overlay">Fresh Apple</div>
+                </div>
+                <h3>Fresh Apple</h3>
+                <p>$3.50 / kg</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Fresh Apple"
+    data-price="3.5"
+    data-image="istockphoto-1217134622-612x612.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="images/banana.jpg" alt="Organic Banana">
+                    <div class="overlay">Organic Banana</div>
+                </div>
+                <h3>Organic Banana</h3>
+                <p>$2.00 / kg</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="images/bundle1.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="gemma-stpjHJGqZyw-unsplash.jpg" alt="Juicy Orange">
+                    <div class="overlay">Juicy Orange</div>
+                </div>
+                <h3>Juicy Orange</h3>
+                <p>$4.00 / kg</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="images/bundle1.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="istockphoto-1240951136-612x612.jpg" alt="Ripe Mango">
+                    <div class="overlay">Ripe Mango</div>
+                </div>
+                <h3>Ripe Mango</h3>
+                <p>$5.00 / kg</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="images/bundle1.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+
+            <!-- Add more products here, hidden initially -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="gemma-stpjHJGqZyw-unsplash.jpg" alt="Fresh Strawberry">
+                    <div class="overlay">Fresh Strawberry</div>
+                </div>
+                <h3>Fresh Strawberry</h3>
+                <p>$6.00 / kg</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="images/bundle1.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="istockphoto-1240951136-612x612.jpg" alt="Organic Kiwi">
+                    <div class="overlay">Organic Kiwi</div>
+                </div>
+                <h3>Organic Kiwi</h3>
+                <p>$7.00 / kg</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="images/bundle1.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next / Prev buttons -->
+        <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
+        <button class="carousel-btn next" id="nextBtn">&#10095;</button>
+    </div>
+
+    <!-- More Products Button -->
+    <a href="more-products.html" class="more-products">More Products</a>
+
+</section>
+
+
+
+<!-- ================= FRUIT BUNDLES SECTION ================= -->
+<section class="bundles" id="bundles">
+    <h2 class="section-title">Fruit Bundles</h2>
+
+    <div class="carousel-container">
+        <div class="carousel-wrapper" id="bundlesWrapper">
+            <!-- Bundle 1 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="images/bundle1.jpg" alt="Tropical Bundle">
+                    <div class="overlay-blue">Tropical Bundle</div>
+                </div>
+                <h3>Tropical Bundle</h3>
+                <p>$12.00 / bundle</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="istockphoto-1240951136-612x612.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+
+            <!-- Bundle 2 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="images/bundle2.jpg" alt="Vitamin C Bundle">
+                    <div class="overlay-blue">Vitamin C Bundle</div>
+                </div>
+                <h3>Vitamin C Bundle</h3>
+                <p>$10.00 / bundle</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="images/bundle1.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+
+            <!-- Bundle 3 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="images/bundle3.jpg" alt="Berry Delight">
+                    <div class="overlay-blue">Berry Delight</div>
+                </div>
+                <h3>Berry Delight</h3>
+                <p>$15.00 / bundle</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="images/bundle1.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+
+            <!-- Bundle 4 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="images/bundle4.jpg" alt="Exotic Mix">
+                    <div class="overlay-blue">Exotic Mix</div>
+                </div>
+                <h3>Exotic Mix</h3>
+                <p>$18.00 / bundle</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="istockphoto-1240951136-612x612.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+
+            <!-- Additional bundles -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="istockphoto-1240951136-612x612.jpg" alt="Citrus Bundle">
+                    <div class="overlay-blue">Citrus Bundle</div>
+                </div>
+                <h3>Citrus Bundle</h3>
+                <p>$14.00 / bundle</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="istockphoto-1240951136-612x612.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next / Prev buttons -->
+        <button class="carousel-btn prev" id="bundlesPrev">&#10094;</button>
+        <button class="carousel-btn next" id="bundlesNext">&#10095;</button>
+    </div>
+
+    <!-- More Bundles button -->
+    <a href="more-products.html?category=bundles" class="more-products">
+    More Bundles
+</a>
+
+</section>
+
+
+
+
+
+<!-- ================= RECOMMENDED SECTION ================= -->
+<section class="recommended" id="recommended">
+    <h2 class="section-title">Recommended</h2>
+
+    <div class="carousel-container">
+        <div class="carousel-wrapper" id="recommendedWrapper">
+            <!-- Recommended Product 1 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="istockphoto-1240951136-612x612.jpg" alt="Sweet Pineapple">
+                    <div class="overlay-red">Sweet Pineapple</div>
+                </div>
+                <h3>Sweet Pineapple</h3>
+                <p>$8.00 / kg</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="istockphoto-1240951136-612x612.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+
+            <!-- Recommended Product 2 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="istockphoto-1217134622-612x612.jpg" alt="Juicy Grapes">
+                    <div class="overlay-red">Juicy Grapes</div>
+                </div>
+                <h3>Juicy Grapes</h3>
+                <p>$6.50 / kg</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="istockphoto-1240951136-612x612.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+
+            <!-- Recommended Product 3 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="gemma-stpjHJGqZyw-unsplash.jpg" alt="Ripe Papaya">
+                    <div class="overlay-red">Ripe Papaya</div>
+                </div>
+                <h3>Ripe Papaya</h3>
+                <p>$7.00 / kg</p>
+                <div class="product-actions">
+            <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="istockphoto-1240951136-612x612.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+
+            <!-- Recommended Product 4 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="istockphoto-1240951136-612x612.jpg" alt="Fresh Melon">
+                    <div class="overlay-red">Fresh Melon</div>
+                </div>
+                <h3>Fresh Melon</h3>
+                <p>$5.50 / kg</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="istockphoto-1240951136-612x612.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+
+            <!-- Optional extra products -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="gemma-stpjHJGqZyw-unsplash.jpg" alt="Exotic Fruit Mix">
+                    <div class="overlay-red">Exotic Fruit Mix</div>
+                </div>
+                <h3>Exotic Fruit Mix</h3>
+                <p>$9.00 / kg</p>
+                <div class="product-actions">
+                    <button class="add-cart"
+    data-name="Tropical Bundle"
+    data-price="12"
+    data-image="istockphoto-1240951136-612x612.jpg">
+    Add to Cart
+</button>
+
+                    <button class="like-btn">❤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next / Prev buttons -->
+        <button class="carousel-btn prev" id="recommendedPrev">&#10094;</button>
+        <button class="carousel-btn next" id="recommendedNext">&#10095;</button>
+    </div>
+
+    <!-- More Recommended button -->
+    <a href="more-products.html?category=recommended" class="more-products">
+    More Recommended
+</a>
+
+</section>
+
+
+
+
+
+<!-- ================= FRUITIVA LIFE & RECIPES ================= -->
+<section class="life-recipes" id="life-recipes">
+    <h2 class="section-title">Fruitiva Life & Recipes</h2>
+
+    <!-- Top Panels -->
+    <div class="panels-container">
+        <!-- Left Panel -->
+        <div class="panel">
+            <img src="images/recipe-summer.jpg" alt="Summer Fruit Recipes">
+            <h3>5 Easy Fruit Recipes for Summer</h3>
+            <p>Discover refreshing and simple recipes.</p>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="panel">
+            <img src="images/health-benefits.jpg" alt="Health Benefits">
+            <h3>Health Benefits of Eating Seasonal Fruits</h3>
+            <p>Better for your health and environment.</p>
+        </div>
+    </div>
+
+
+
+    <!-- More Articles Button -->
+    <a href="articles.html" class="more-products">More Articles</a>
+</section>
+
+
+
+
+
+
+
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+    <div class="footer-container">
+        <!-- Left Column: Navigation Links -->
+        <div class="footer-col">
+            <h4>Navigation</h4>
+            <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Center Column: Contact Info -->
+        <div class="footer-col">
+            <h4>Contact Us</h4>
+            <p>Email: <a href="mailto:info@fruitiva.com">info@fruitiva.com</a></p>
+            <p>Phone: <a href="tel:+15551234567">+1-555-123-4567</a></p>
+        </div>
+
+        <!-- Right Column: Social Icons -->
+        <div class="footer-col">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+                <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+        <p>© 2025 Fruitiva. All Rights Reserved.</p>
+    </div>
+</footer>
+
+
+<script src="script.js"></script>
+</body>
+</html>

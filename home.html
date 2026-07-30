@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruitiva | Fresh Grocery</title>
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="home.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <script src="products.js"></script>
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<div class="top-bar">
+    <div class="top-left">
+        <span><i class="fa-solid fa-truck"></i> We deliver everywhere in KGL</span>
+        <span><i class="fa-solid fa-phone"></i> 0783628833</span>
+        <a href="https://www.instagram.com/freshy_board?igsh=MjNmemVvYXNna2Y1" target="_blank" rel="noopener" class="ig-link"><i class="fa-brands fa-instagram"></i> freshy_board</a>
+    </div>
+
+    <div class="top-right">
+        <a href="login.html?tab=login" target="_blank" rel="noopener"><i class="fa-regular fa-user"></i> Login</a> / <a href="login.html?tab=register" target="_blank" rel="noopener">Create Account</a>
+
+        <a href="wishlist.html" target="_blank" rel="noopener"><i class="fa-regular fa-heart"></i> Wishlist</a>
+
+        <select>
+            <option>USD</option>
+            <option>FRW</option>
+            <option>EUR</option>
+        </select>
+    </div>
+</div>
+
+<!-- ================= MAIN NAVBAR ================= -->
+<div class="main-nav">
+    <!-- Logo -->
+    <a href="home.html" class="logo" aria-label="Fresh Link home">
+        <img src="logo-removebg-preview.png" alt="Fresh Link logo">
+    </a>
+ 
+    <!-- Search -->
+    <div class="search-bar">
+        <input type="text" placeholder="Search for products...">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+
+    <!-- Cart -->
+    <a href="cart.html" class="cart-box">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="cart-amount">$0.00</span>
+    </a>
+</div>
+
+<!-- ================= LOWER NAV ================= -->
+<div class="lower-nav">
+    <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="aboutt.html" target="_blank" rel="noopener">About Us</a></li>
+        <li><a href="shopp.html">Shop</a></li>
+        <li><a href="subscription.html">Subscription</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <div class="highlight-links">
+        <a href="shopp.html?filter=recommended" target="_blank" rel="noopener" class="recommended">Recommended</a>
+        <a href="shopp.html?filter=special" target="_blank" rel="noopener" class="offer">Special Offer</a>
+    </div>
+</div>
+
+<!-- ================= HERO SLIDER ================= -->
+<section class="hero-slider">
+    <div class="slides">
+
+        <!-- Slide 1 -->
+        <div class="slide active" style="background-image: url('home1.jpg');">
+            <div class="slide-content">
+                <h1>Fresh Groceries<br>Delivered Fast</h1>
+                <p>Quality food, best prices, quick delivery in Kigali</p>
+                <a href="shopp.html" target="_blank" rel="noopener" class="hero-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide" style="background-image: url('home2.jpg');">
+            <div class="slide-content">
+                <h1>Healthy & Organic<br>Everyday</h1>
+                <p>Fresh fruits and vegetables straight from farms</p>
+                <a href="shopp.html?filter=recommended" target="_blank" rel="noopener" class="hero-btn">Explore Products</a>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide" style="background-image: url('home3.png');">
+            <div class="slide-content">
+                <h1>Special Offers<br>Just For You</h1>
+                <p>Save more with our daily grocery deals</p>
+                <a href="shopp.html?filter=special" target="_blank" rel="noopener" class="hero-btn special">View Offers</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <button class="nav prev">&#10094;</button>
+    <button class="nav next">&#10095;</button>
+
+    <!-- Dots -->
+    <div class="dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+</section>
+
+
+<section class="promo-section">
+
+    <div class="promo-card veggies" id="promoVeggies">
+    <div class="promo-image">
+        <img id="veggieImg" src="https://pngimg.com/uploads/carrot/carrot_PNG4985.png" alt="Veggies">
+    </div>
+
+    <div class="promo-content">
+        <h2 id="veggieTitle">Veggies</h2>
+        <p id="veggieText"><strong>100%</strong> Organic Products</p>
+        <a href="shopp.html?filter=Vegetables" class="btn" id="veggieBtn">Buy Now</a>
+    </div>
+
+    <span class="semi-circle"></span>
+</div>
+
+
+    <!-- FRUITS -->
+    <div class="promo-card fruits" id="promoFruits">
+    <div class="promo-image">
+        <img id="fruitImg" src="https://pngimg.com/uploads/orange/orange_PNG800.png" alt="Fruits">
+    </div>
+
+    <div class="promo-content">
+        <h2 id="fruitTitle">Fruits</h2>
+        <p id="fruitText"><strong>100%</strong> Fresh Products</p>
+        <a href="shopp.html?filter=Fruits" class="btn" id="fruitBtn">Buy Now</a>
+    </div>
+
+    <span class="semi-circle"></span>
+</div>
+
+</section>
+
+<section class="about-us">
+
+    <!-- LEFT : CONTENT -->
+    <div class="about-text">
+        <span class="tag">ABOUT US</span>
+        <h2>Fresh Food, Trusted Quality</h2>
+        <p>
+            We are a direct farm-to-consumer grocery delivery service on a mission to empower local farmers and deliver unmatched freshness to customers, wherever they are. By sourcing directly from village farms, we ensure that farmers receive fair prices for their labor, while you receive produce that is harvested—not days or weeks later in a cold storage warehouse.
+        </p>
+
+        <div class="features">
+            <div>🍎 Fresh & Organic</div>
+            <div>🚚 Fast Delivery</div>
+            <div>🤝 Trusted by Families</div>
+        </div>
+    </div>
+
+    <!-- RIGHT : 3D GALLERY -->
+    <div class="about-visual">
+        <div class="gallery">
+            <span style="--i:1;"><img src="aboutus2.png" alt="Fresh produce"></span>
+            <span style="--i:2;"><img src="aboutus4.png" alt="Fresh greens"></span>
+            <span style="--i:3;"><img src="about%20us%201.png" alt="Vegetables"></span>
+            <span style="--i:4;"><img src="aboutus6.jpg" alt="Fruitiva grocery display"></span>
+            <span style="--i:5;"><img src="aboutus%205.jpg" alt="Healthy produce"></span>
+        </div>
+    </div>
+
+</section>
+
+<section class="categories-section" aria-label="Featured categories">
+    <div class="section-heading">
+        <span class="section-tag">BROWSE BY</span>
+        <h2 class="styled-title">Shop by Category</h2>
+        <div class="title-underline"><span></span></div>
+        <p class="section-subtitle">Find exactly what you need from our fresh selection</p>
+    </div>
+    <div class="categories">
+        <a href="shopp.html?filter=Roots%20%26%20Tubers" class="category cat-roots">
+            <img src="https://img.icons8.com/ios-filled/64/sweet-potato.png" alt="Roots and Tubers">
+            <p>Roots &amp; Tubers</p>
+        </a>
+
+        <a href="shopp.html?filter=Vegetables" class="category cat-vegetables">
+            <img src="https://img.icons8.com/ios-filled/64/broccoli.png" alt="Vegetables">
+            <p>Vegetables</p>
+        </a>
+
+        <a href="shopp.html?filter=Fruits" class="category cat-fruits">
+            <img src="https://img.icons8.com/ios-filled/64/banana.png" alt="Fruits">
+            <p>Fruits</p>
+        </a>
+
+        <a href="shopp.html?filter=Eggs" class="category cat-eggs">
+            <img src="https://img.icons8.com/ios-filled/64/eggs.png" alt="Eggs">
+            <p>Eggs</p>
+        </a>
+    </div>
+</section>
+
+<section class="rrecommended">
+    <div class="section-heading">
+        <span class="section-tag">HANDPICKED FOR YOU</span>
+        <h2 class="styled-title">Recommended Products</h2>
+        <div class="title-underline"><span></span></div>
+        <p class="section-subtitle">Fresh organic favorites selected especially for your kitchen</p>
+    </div>
+    <div class="products-grid" id="recommended-grid"></div>
+    <div class="section-actions">
+        <a href="shopp.html?filter=recommended" class="more-btn">View All Recommended <i class="fas fa-arrow-right" style="margin-left: 6px;"></i></a>
+    </div>
+</section>
+
+<section class="promoo-section">
+    <div class="section-heading">
+        <span class="section-tag">LATEST STORIES</span>
+        <h2 class="styled-title">Fresh Articles &amp; Tips</h2>
+        <div class="title-underline"><span></span></div>
+        <p class="section-subtitle">Discover healthy living guides and updates from Fruitiva</p>
+    </div>
+    <div class="promoo-grid">
+
+        <div class="promoo-card" style="background-image: url('istockphoto-1217134622-612x612.jpg');">
+            <div class="promoo-overlay">
+                <h2>Eat Organic<br>Live Better</h2>
+                <a href="article.html?id=organic" target="_blank" rel="noopener" class="promoo-btn">Read More</a>
+            </div>
+        </div>
+
+        <div class="promoo-card" style="background-image: url('gemma-stpjHJGqZyw-unsplash.jpg');">
+            <div class="promoo-overlay">
+                <h2>Friendly Doorstep<br>Services</h2>
+                <a href="article.html?id=doorstep" target="_blank" rel="noopener" class="promoo-btn">Read More</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-widgets">
+      <div class="container">
+        <div class="footer-columns">
+
+          <!-- Column 1: Help -->
+          <div class="footer-column">
+            <h4>Help</h4>
+            <ul>
+              <li><a href="orders.html" target="_blank" rel="noopener">How to Make an Order?</a></li>
+              <li><a href="delivery.html" target="_blank" rel="noopener">Delivery Terms</a></li>
+              <li><a href="myorders.html" target="_blank" rel="noopener">My Orders</a></li>
+              <li><a href="return.html" target="_blank" rel="noopener">Return</a></li>
+              <li><a href="aboutt.html" target="_blank" rel="noopener">About Us</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Shop -->
+          <div class="footer-column">
+            <h4>Shop</h4>
+            <ul>
+              <li><a href="shopp.html">Products</a></li>
+              <li><a href="cart.html">Cart</a></li>
+              <li><a href="wishlist.html" target="_blank" rel="noopener">Wishlist</a></li>
+              <li><a href="login.html?tab=login" target="_blank" rel="noopener">My Account</a></li>
+              <li><a href="contact.html" target="_blank" rel="noopener">Contacts</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Categories -->
+          <div class="footer-column">
+            <h4>Categories</h4>
+            <ul>
+              <li><a href="shopp.html?filter=Roots%20%26%20Tubers">Roots &amp; Tubers</a></li>
+              <li><a href="shopp.html?filter=Vegetables">Vegetables</a></li>
+              <li><a href="shopp.html?filter=Fruits">Fruits</a></li>
+              <li><a href="shopp.html?filter=Eggs">Eggs</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-inner">
+          <div class="copyright">
+            <span class="circle-icon">✓</span>
+            Privacy Policy / © 2026 Fruitiva Fresh Grocery – All Rights Reserved
+          </div>
+          <a href="https://www.instagram.com/freshy_board?igsh=MjNmemVvYXNna2Y1" target="_blank" rel="noopener" class="footer-instagram-link">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Follow us on Instagram</span>
+          </a>
+          <div class="back-to-top">
+            <a href="#" class="to-top"><i class="fas fa-chevron-up"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<script src="home.js"></script>
+</body>
+</html>

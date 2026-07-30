@@ -1,0 +1,77 @@
+/* ================= CATEGORY SIDEBAR BUTTONS ================= */
+.cat-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: none;
+    background: transparent;
+    color: #475569;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.cat-btn:hover {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+.cat-btn.active {
+    background: #16a34a;
+    color: #ffffff;
+}
+
+/* ================= PRODUCT CARD ================= */
+.product-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.product-card .relative:hover > div.absolute {
+    opacity: 1 !important;
+}
+
+/* ================= CATEGORY BANNER TRANSITION ================= */
+#category-banner {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#category-banner.opacity-0 {
+    opacity: 0;
+}
+
+#category-banner.translate-y-4 {
+    transform: translateY(1rem);
+}
+
+/* ================= MOBILE CATEGORY PILLS ================= */
+.no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.cat-pill {
+    display: inline-block;
+    width: auto;
+    white-space: nowrap;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: #f3f4f6;
+    flex-shrink: 0;
+}
+
+.cat-pill.active {
+    background: #16a34a;
+    color: #ffffff;
+}

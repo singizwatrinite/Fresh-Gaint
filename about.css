@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: #f8fafc;
+    color: #333;
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(120deg, #2ecc71, #27ae60);
+    color: white;
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+
+/* SERVICES */
+.services {
+    background: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.service-box {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.service {
+    background: #f1f5f9;
+    padding: 30px;
+    width: 260px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.service:hover {
+    transform: translateY(-10px);
+    background: #ecfdf5;
+}
+
+.service i {
+    font-size: 38px;
+    color: #27ae60;
+    margin-bottom: 15px;
+}
+
+/* REVIEWS */
+.reviews {
+    padding: 60px 20px;
+    background: #ecfdf5;
+    text-align: center;
+}
+
+.review-box {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.review {
+    background: white;
+    width: 280px;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.review:hover {
+    transform: scale(1.05);
+}
+
+.review img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+/* FOOTER */
+footer {
+    background: #27ae60;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}

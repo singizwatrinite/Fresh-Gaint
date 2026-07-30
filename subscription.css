@@ -1,0 +1,80 @@
+:root {
+    --primary: #2fa86f;
+    --dark-green: #1B4332;
+    --gold: #FFB703;
+    --bg-light: #f8f9fa;
+    --white: #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Outfit', sans-serif; background: var(--bg-light); color: #2D3436; overflow-x: hidden; }
+
+/* --- PAGE CONTENT --- */
+.hero { height: 60vh; background-size: cover; background-position: center; position: relative; }
+.hero .overlay { background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.2)); height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; color: white; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 10px; }
+
+.plans { padding: 80px 5%; text-align: center; background: white; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--dark-green); margin-bottom: 40px; }
+.plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: auto; }
+.plan-card { background: var(--bg-light); padding: 40px 20px; border-radius: 30px; cursor: pointer; transition: 0.4s; position: relative; }
+.plan-card.active { border: 2px solid var(--primary); background: white; }
+.badge { position: absolute; top: -15px; right: 20px; padding: 8px 15px; border-radius: 50px; font-size: 11px; color: white; background: var(--gold); }
+.badge.purple { background: #6c63ff; }
+.badge.green { background: var(--primary); }
+
+.calendar-box { max-width: 450px; margin: 40px auto; padding: 25px; background: var(--dark-green); border-radius: 20px; color: white; text-align: center; display: none; }
+.category { background: white; border-radius: 35px; padding: 35px; margin-bottom: 35px; }
+.cat-header { font-family: 'Playfair Display', serif; border-left: 5px solid var(--primary); padding-left: 15px; margin-bottom: 25px; }
+
+.row { display: grid; grid-template-columns: 80px 1fr 140px 120px; gap: 20px; align-items: center; border-bottom: 1px solid #eee; padding: 20px 0; }
+.row img { width: 70px; height: 70px; border-radius: 15px; object-fit: cover; }
+.qty button { width: 35px; height: 35px; border-radius: 10px; border: none; background: #e8f5ee; color: var(--primary); cursor: pointer; }
+.price { text-align: right; font-weight: 600; color: var(--primary); }
+
+.yellow-request { background: var(--gold); padding: 10px 20px; border-radius: 15px; font-weight: 600; cursor: pointer; display: inline-block; margin: 20px 0; }
+textarea { width: 100%; border: 2px solid var(--gold); border-radius: 15px; padding: 15px; display: none; background: #fffdf2; }
+
+.category-total { text-align: right; color: #888; margin-top: 20px; }
+.category-total strong { color: var(--dark-green); font-size: 1.4rem; }
+
+.grand-total-card { background: var(--dark-green); color: white; padding: 40px; border-radius: 35px; text-align: center; margin: 40px 0; }
+#grandTotal { font-size: 3.5rem; font-family: 'Playfair Display', serif; color: var(--gold); display: block; }
+
+.form-card { background: white; padding: 40px; border-radius: 35px; }
+.form-card input { width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 12px; border: 1px solid #ddd; }
+.confirm-btn { width: 100%; padding: 20px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; }
+
+@media (max-width: 768px) {
+    .row { grid-template-columns: 70px 1fr; }
+    .qty, .price { grid-column: 1 / span 2; }
+}
+
+/* Thank-you modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+.modal-overlay.hidden { display: none; }
+.modal-box {
+    background: #fff;
+    border-radius: 24px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+.modal-add-btn {
+    padding: 14px 24px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
