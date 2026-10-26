@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fresh Link | Article</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../shared/shared.css"><style>
+  :root{
+    --cream:#faf5ea;
+    --paper:#fffdf8;
+    --ink:#23261f;
+    --ink-soft:#5a5c52;
+    --forest:#1e4b37;
+    --forest-dark:#12331f;
+    --berry:#c0323a;
+    --gold:#e2a63b;
+    --sage-line:#d8e1d2;
+    --shadow: 0 18px 40px -22px rgba(30,75,55,0.35);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.55;
+  }
+
+  a{color:inherit;}
+
+  h1,h2,h3,blockquote{
+    font-family:'Fraunces', serif;
+    margin:0;
+  }
+
+  /* ============ TOP BAR ============ */
+  .site-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 28px;
+    background:var(--forest-dark);
+    color:#f4f1e8;
+  }
+  .site-bar .brand{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.25rem;
+    text-decoration:none;
+    color:#fff;
+  }
+  .site-bar .brand span.mark{color:var(--berry);}
+  .site-bar nav{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    font-size:0.9rem;
+  }
+  .site-bar nav a{
+    text-decoration:none;
+    opacity:0.85;
+    transition:opacity .2s;
+  }
+  .site-bar nav a:hover{opacity:1;}
+  .site-bar .tag{
+    font-size:0.72rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    background:rgba(226,166,59,0.16);
+    color:var(--gold);
+    padding:6px 12px;
+    border-radius:999px;
+    display:none;
+  }
+  @media(min-width:640px){ .site-bar .tag{display:inline-flex;} }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    min-height:48vh;
+    display:flex;
+    align-items:flex-end;
+    background-size:cover;
+    background-position:center;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(18,51,31,0.15) 0%, rgba(18,51,31,0.55) 65%, rgba(18,51,31,0.86) 100%);
+  }
+  .hero-inner{
+    position:relative;
+    z-index:1;
+    max-width:920px;
+    margin:0 auto;
+    padding:48px 28px 36px;
+    color:#fff;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:0.74rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    background:rgba(255,255,255,0.14);
+    border:1px solid rgba(255,255,255,0.35);
+    padding:6px 14px;
+    border-radius:999px;
+    margin-bottom:16px;
+    backdrop-filter:blur(2px);
+  }
+  .hero h1{
+    font-size:clamp(1.9rem, 4.6vw, 2.9rem);
+    font-weight:700;
+    line-height:1.08;
+    letter-spacing:-0.01em;
+  }
+  .hero-meta{
+    margin-top:16px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px;
+    font-size:0.85rem;
+    color:rgba(255,255,255,0.85);
+  }
+  .hero-meta span{display:inline-flex;align-items:center;gap:7px;}
+
+  /* ============ TOOLBAR ============ */
+  .toolbar-wrap{
+    background:var(--paper);
+    border-bottom:1px solid var(--sage-line);
+  }
+  .toolbar{
+    max-width:920px;
+    margin:0 auto;
+    padding:14px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+
+  .back-shop{
+    font-size:0.85rem;
+    font-weight:600;
+    text-decoration:none;
+    color:var(--forest);
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 4px;
+  }
+  .back-shop:hover{color:var(--berry);}
+
+  .share-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .share-row a{
+    width:34px;height:34px;
+    display:inline-flex;align-items:center;justify-content:center;
+    border-radius:50%;
+    background:var(--cream);
+    border:1px solid var(--sage-line);
+    color:var(--forest);
+    text-decoration:none;
+    font-size:0.85rem;
+    transition:background .2s, color .2s;
+  }
+  .share-row a:hover{background:var(--forest); color:#fff;}
+
+  /* ============ MAIN WRAP ============ */
+  .article-shell{
+    max-width:920px;
+    margin:0 auto;
+    padding:40px 28px 20px;
+  }
+
+  /* ---- image-left / text-right lead section ---- */
+  .lead-grid{
+    display:grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap:36px;
+    align-items:start;
+    margin-bottom:38px;
+  }
+  .lead-media img{
+    width:100%;
+    height:100%;
+    min-height:340px;
+    object-fit:cover;
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    display:block;
+  }
+  .lead-media figcaption{
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+  .lede{
+    font-size:1.1rem;
+    color:var(--ink);
+    margin:0 0 14px;
+  }
+  .lede::first-letter{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:2.9rem;
+    float:left;
+    line-height:0.75;
+    padding:4px 8px 0 0;
+    color:var(--forest);
+  }
+
+  .article-shell p{
+    margin:0 0 14px;
+    font-size:0.98rem;
+    color:#3a3d34;
+  }
+  .article-shell p.tts-active{
+    background:linear-gradient(90deg, rgba(226,166,59,0.16), transparent 90%);
+    border-left:3px solid var(--gold);
+    padding-left:12px;
+    margin-left:-15px;
+    border-radius:2px;
+  }
+
+  /* ---- video, full width below the lead grid ---- */
+  .video-crate{
+    margin:0 0 40px;
+    background:var(--paper);
+    border:1px solid var(--sage-line);
+    border-radius:18px;
+    padding:18px;
+    box-shadow:var(--shadow);
+  }
+  .video-crate .crate-label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:0.74rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--forest);
+    font-weight:700;
+    margin-bottom:12px;
+  }
+  .video-crate .crate-label i{color:var(--berry);}
+  .video-frame{
+    position:relative;
+    width:100%;
+    padding-top:42%;
+    border-radius:12px;
+    overflow:hidden;
+    background:#000;
+  }
+  .video-frame iframe{
+    position:absolute; inset:0; width:100%; height:100%; border:0;
+  }
+  .video-crate .crate-caption{
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    margin:10px 0 0;
+  }
+
+  /* ---- continuing article text below video ---- */
+  .continue-text{
+    max-width:680px;
+    margin:0 auto;
+  }
+
+  blockquote.pull{
+    font-size:1.3rem;
+    font-weight:500;
+    font-style:italic;
+    color:var(--forest);
+    border-left:3px solid var(--berry);
+    padding:2px 0 2px 20px;
+    margin:8px 0 28px;
+    line-height:1.4;
+  }
+  blockquote.pull cite{
+    display:block;
+    font-family:'Work Sans', sans-serif;
+    font-style:normal;
+    font-size:0.76rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:8px;
+  }
+
+  .closing-cta{
+    max-width:680px;
+    margin:36px auto 0;
+    padding:26px 0 4px;
+    text-align:left;
+    border-top:1px solid var(--sage-line);
+  }
+  .closing-cta h3{
+    font-family:'Work Sans', sans-serif;
+    font-weight:800;
+    font-size:clamp(1.5rem, 4vw, 2.1rem);
+    line-height:1.18;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+    margin-bottom:12px;
+  }
+  .closing-cta h3 .highlight{
+    color:var(--gold);
+  }
+  .closing-cta p{
+    color:var(--ink-soft);
+    max-width:480px;
+    margin:0 0 22px;
+    font-size:1rem;
+  }
+  .closing-cta a.cta-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--gold);
+    color:var(--forest-dark);
+    font-weight:700;
+    padding:12px 26px;
+    border-radius:999px;
+    text-decoration:none;
+    transition:transform .15s;
+    box-shadow:var(--shadow);
+  }
+  .closing-cta a.cta-btn:hover{transform:translateY(-2px);}
+
+  /* ============ LISTEN — now sits below the article ============ */
+  .listen-section{
+    max-width:680px;
+    margin:36px auto 0;
+    text-align:center;
+    padding:26px 20px;
+    border:1px dashed var(--sage-line);
+    border-radius:16px;
+  }
+  .listen-section .listen-kicker{
+    font-size:0.76rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:14px;
+    display:block;
+  }
+
+  /* the produce-tag listen button */
+  .listen-tag{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--forest);
+    color:#f4f1e8;
+    border:none;
+    padding:11px 20px 11px 28px;
+    border-radius:4px 12px 12px 4px;
+    cursor:pointer;
+    font-family:'Work Sans', sans-serif;
+    font-weight:600;
+    font-size:0.88rem;
+    letter-spacing:.02em;
+    box-shadow:var(--shadow);
+    transition:transform .15s ease, background .2s ease;
+  }
+  .listen-tag:hover{transform:translateY(-1px); background:var(--forest-dark);}
+  .listen-tag:active{transform:translateY(0);}
+  .listen-tag::before{
+    content:"";
+    position:absolute;
+    left:10px;
+    top:50%;
+    transform:translateY(-50%);
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--cream);
+    box-shadow:0 0 0 2px var(--forest);
+  }
+  .listen-tag .icon{
+    width:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .listen-tag .bars{
+    display:inline-flex;
+    align-items:flex-end;
+    gap:2px;
+    height:14px;
+  }
+  .listen-tag .bars span{
+    width:3px;
+    background:var(--gold);
+    border-radius:2px;
+    height:4px;
+  }
+  .listen-tag.playing .bars span{
+    animation:soundbar 0.9s ease-in-out infinite;
+  }
+  .listen-tag .bars span:nth-child(1){animation-delay:0s;}
+  .listen-tag .bars span:nth-child(2){animation-delay:0.15s;}
+  .listen-tag .bars span:nth-child(3){animation-delay:0.3s;}
+  @keyframes soundbar{
+    0%,100%{height:4px;}
+    50%{height:14px;}
+  }
+  .listen-tag[data-unsupported="true"]{display:none;}
+
+  /* ============ RELATED ============ */
+  .related{
+    max-width:680px;
+    margin:44px auto 0;
+    padding:28px 0 60px;
+    border-top:1px solid var(--sage-line);
+  }
+  .related .related-eyebrow{
+    font-size:0.74rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:14px;
+    display:block;
+  }
+  .related-card{
+    display:flex;
+    gap:18px;
+    align-items:center;
+    text-decoration:none;
+    color:var(--ink);
+    background:var(--paper);
+    border:1px solid var(--sage-line);
+    border-radius:14px;
+    padding:14px;
+    transition:box-shadow .2s, transform .2s;
+  }
+  .related-card:hover{box-shadow:var(--shadow); transform:translateY(-2px);}
+  .related-card img{
+    width:96px;height:96px;
+    object-fit:cover;
+    border-radius:10px;
+    flex-shrink:0;
+  }
+  .related-card h4{
+    font-family:'Fraunces', serif;
+    font-size:1.05rem;
+    margin:0 0 6px;
+  }
+  .related-card span{
+    font-size:0.8rem;
+    color:var(--ink-soft);
+  }
+
+  @media(max-width:760px){
+    .lead-grid{grid-template-columns:1fr; gap:20px;}
+    .lead-media img{min-height:220px;}
+  }
+  @media(max-width:560px){
+    .site-bar{padding:14px 18px;}
+    .hero-inner{padding:36px 18px 28px;}
+    .article-shell{padding:30px 18px 10px;}
+    .toolbar{padding:12px 18px;}
+    .video-frame{padding-top:56%;}
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="top-left">
+        <span><i class="fa-solid fa-truck"></i> We deliver everywhere in KGL</span>
+        <span><i class="fa-solid fa-phone"></i> 0783628833</span>
+        <a href="https://www.instagram.com/freshy_board?igsh=MjNmemVvYXNna2Y1" target="_blank" rel="noopener" class="ig-link"><i class="fa-brands fa-instagram"></i> freshy_board</a>
+    </div>
+    <div class="top-right">
+        <a href="../login/login.html?tab=login"><i class="fa-regular fa-user"></i> Login</a> / <a href="../login/login.html?tab=register">Create Account</a>
+        <a href="../wishlist/wishlist.html"><i class="fa-regular fa-heart"></i> Wishlist</a>
+    </div>
+</div>
+
+<div class="main-nav">
+    <a href="../home/home.html" class="logo" aria-label="Fresh Link home">
+        <img src="../images/logo-removebg-preview.png" alt="Fresh Link logo">
+    </a>
+    <div class="search-bar">
+        <input type="text" placeholder="Search for fresh products...">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+    <a href="../cart/cart.html" class="cart-box">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="cart-amount">0 RWF</span>
+    </a>
+</div>
+
+<div class="lower-nav">
+    <ul class="nav-links">
+        <li><a href="../home/home.html">Home</a></li>
+        <li><a href="aboutt.html">About Us</a></li>
+        <li><a href="../shop/shopp.html">Shop</a></li>
+        <li><a href="../subscription/subscription.html">Subscription</a></li>
+        <li><a href="../contact/contact.html">Contact</a></li>
+    </ul>
+    <div class="highlight-links">
+        <a href="../shop/shopp.html?filter=recommended" class="recommended">Recommended</a>
+        <a href="../shop/shopp.html?filter=special" class="offer">Special Offer</a>
+    </div>
+</div>
+
+<section class="hero" id="hero">
+    <div class="hero-inner">
+        <span class="eyebrow" id="hero-eyebrow"><i class="fa-solid fa-leaf"></i> Field Notes</span>
+        <h1 id="hero-title">Loading article…</h1>
+        <div class="hero-meta">
+            <span id="hero-date"><i class="fa-regular fa-calendar"></i></span>
+            <span id="hero-readtime"><i class="fa-regular fa-clock"></i></span>
+            <span><i class="fa-regular fa-user"></i> Fresh Link Editorial Team</span>
+        </div>
+    </div>
+</section>
+
+<div class="toolbar-wrap">
+    <div class="toolbar">
+        <a href="../shop/shopp.html" class="back-shop"><i class="fa-solid fa-arrow-left"></i> Back to shop</a>
+
+        <div class="share-row">
+            <a href="#" title="Share on Facebook" onclick="return false;"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" title="Share on Instagram" onclick="return false;"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" id="mailShare" title="Share by email"><i class="fa-regular fa-envelope"></i></a>
+        </div>
+    </div>
+</div>
+
+<main class="article-shell">
+    <article id="article-body">
+
+        <!-- IMAGE LEFT / TEXT RIGHT -->
+        <div class="lead-grid">
+            <figure class="lead-media" id="inline-figure">
+                <img id="inline-figure-img" src="" alt="">
+                <figcaption id="inline-figure-caption"></figcaption>
+            </figure>
+            <div class="lead-copy">
+                <p class="lede" id="lede-para"></p>
+                <div id="body-paras"></div>
+            </div>
+        </div>
+
+        <!-- VIDEO, FULL WIDTH, BELOW THE PAIR -->
+        <div class="video-crate">
+            <div class="crate-label"><i class="fa-solid fa-basket-shopping"></i> <span id="video-label">Watch</span></div>
+            <div class="video-frame">
+                <iframe id="video-frame" src="" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <p class="crate-caption" id="video-caption"></p>
+        </div>
+
+        <!-- ARTICLE CONTINUES -->
+        <div class="continue-text">
+            <blockquote class="pull" id="pull-quote">
+                <span id="pull-text"></span>
+                <cite id="pull-cite"></cite>
+            </blockquote>
+
+            <div id="body-paras-3"></div>
+
+            <div class="closing-cta">
+                <h3 id="cta-title"></h3>
+                <p id="cta-text">Everything in this article is a click away in the Fresh Link shop.</p>
+                <a href="#" id="cta-btn" class="cta-btn"><i class="fa-solid fa-basket-shopping"></i> Shop now</a>
+            </div>
+
+            <!-- LISTEN — now below the article -->
+            <div class="listen-section">
+                <span class="listen-kicker">Short on time?</span>
+                <button class="listen-tag" id="listenBtn" data-unsupported="false">
+                    <span class="icon" id="listenIcon"><i class="fa-solid fa-play"></i></span>
+                    <span id="listenLabel">Listen to this article</span>
+                    <span class="bars"><span></span><span></span><span></span></span>
+                </button>
+            </div>
+
+            <div class="related">
+                <span class="related-eyebrow">Keep reading</span>
+                <a href="#" id="related-card" class="related-card">
+                    <img id="related-img" src="" alt="">
+                    <div>
+                        <h4 id="related-title"></h4>
+                        <span id="related-sub"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </article>
+</main>
+
+<script>
+/* ============================================================
+   ARTICLE DATA — trimmed to shorter paragraphs
+   ============================================================ */
+const ARTICLES = {
+    organic: {
+        eyebrow: "Field Notes",
+        title: "Eat Organic, Live Better",
+        date: "July 2026",
+        readTime: "3 min read",
+        heroImg: "istockphoto-1217134622-612x612.jpg",
+        lede: "Every crate from our partner farms outside Kigali carries a promise: nothing sprayed on it that you wouldn't want on your own table.",
+        bodyBefore: [
+            "\"Organic\" means our growers skip synthetic pesticides and chemical fertilizers, relying on composting and crop rotation instead. It's slower farming, but it keeps the soil healthy for next season, not just this one.",
+            "The honest science is mixed on whether organic produce is more nutritious. What's consistent is lower pesticide residue — which matters most for what you eat skin-on, like our leafy greens, carrots, and citrus."
+        ],
+        pullQuote: "Good food doesn't need a marketing department. It just needs a farmer who cares.",
+        pullCite: "— Fresh Link sourcing team",
+        inlineImg: {
+            src: "veg.jpg",
+            alt: "Fresh organic vegetables in a crate",
+            caption: "Weekly harvest, sorted the same morning it's delivered."
+        },
+        videoLabel: "Watch: What organic actually means",
+        videoId: "Kvskr1-7kQk",
+        videoCaption: "A quick, balanced look at what the organic label does and doesn't guarantee.",
+        bodyAfter: [
+            "A few habits help regardless of where produce comes from: rinse everything, eat with the seasons, and don't let the word \"organic\" distract from just eating more vegetables overall.",
+            "New to shopping this way? Start with what you already cook — swap your usual carrots or tomatoes for the organic listing and build out from there."
+        ],
+        ctaTitle: "Shop this week's organic picks",
+        ctaHighlight: "organic picks",
+        ctaText: "Fresh off the farm, sorted the same morning, delivered across Kigali.",
+        ctaFilter: "Vegetables",
+        related: {
+            id: "doorstep",
+            img: "gemma-stpjHJGqZyw-unsplash.jpg",
+            title: "Friendly Doorstep Services",
+            sub: "How your order gets to your door, same day, cold chain intact."
+        }
+    },
+
+    doorstep: {
+        eyebrow: "Behind the Delivery",
+        title: "Friendly Doorstep Services",
+        date: "July 2026",
+        readTime: "3 min read",
+        heroImg: "gemma-stpjHJGqZyw-unsplash.jpg",
+        lede: "Free delivery across Kigali isn't just a line in our top bar — it's a promise about how your order travels from our table to yours.",
+        bodyBefore: [
+            "Orders placed before early afternoon are picked the same day, straight from that morning's stock. Produce is boxed by category, with anything perishable packed last so it spends the least time outside a cooler.",
+            "Our delivery partners run fixed routes across Kigali, which keeps windows predictable. If you're not home, we call the number on your order rather than leaving bags on the doorstep."
+        ],
+        pullQuote: "A good delivery is the one you don't have to think about. You just open the door and dinner's there.",
+        pullCite: "— Fresh Link logistics team",
+        inlineImg: {
+            src: "f8b63b3c-ece2-43eb-b96f-e3beafda7fd2.jpg",
+            alt: "Grocery bags packed and ready for delivery",
+            caption: "Every order bagged by category — cold items together, delicate produce on top."
+        },
+        videoLabel: "Watch: The scale of modern grocery delivery",
+        videoId: "fnIrwrCq_4Q",
+        videoCaption: "How large delivery operations move fresh orders quickly — the same idea, at Kigali scale.",
+        bodyAfter: [
+            "First delivery? Keep your phone reachable around your delivery window, and double-check your address at checkout — most delays come from a missing landmark, not traffic.",
+            "Questions about an order? Call 07888888 or message us on Instagram at freshlink — a real person answers both."
+        ],
+        ctaTitle: "Place your next order",
+        ctaHighlight: "next order",
+        ctaText: "Free delivery, same-day picking, and a real person on the other end of the phone.",
+        ctaFilter: "All",
+        related: {
+            id: "organic",
+            img: "istockphoto-1217134622-612x612.jpg",
+            title: "Eat Organic, Live Better",
+            sub: "What \"organic\" actually means for the produce we deliver."
+        }
+    }
+};
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function paraEl(text){
+    const p = document.createElement("p");
+    p.className = "tts-para";
+    p.textContent = text;
+    return p;
+}
+
+function renderArticle(id){
+    const data = ARTICLES[id] || ARTICLES.organic;
+
+    document.getElementById("hero").style.backgroundImage = `url('${data.heroImg}')`;
+    document.getElementById("hero-eyebrow").innerHTML = `<i class="fa-solid fa-leaf"></i> ${data.eyebrow}`;
+    document.getElementById("hero-title").textContent = data.title;
+    document.getElementById("hero-date").innerHTML = `<i class="fa-regular fa-calendar"></i> ${data.date}`;
+    document.getElementById("hero-readtime").innerHTML = `<i class="fa-regular fa-clock"></i> ${data.readTime}`;
+    document.title = `${data.title} | Fresh Link`;
+
+    document.getElementById("lede-para").textContent = data.lede;
+    document.getElementById("lede-para").classList.add("tts-para");
+
+    const beforeWrap = document.getElementById("body-paras");
+    beforeWrap.innerHTML = "";
+    data.bodyBefore.forEach(t => beforeWrap.appendChild(paraEl(t)));
+
+    document.getElementById("inline-figure-img").src = data.inlineImg.src;
+    document.getElementById("inline-figure-img").alt = data.inlineImg.alt;
+    document.getElementById("inline-figure-caption").textContent = data.inlineImg.caption;
+
+    document.getElementById("pull-text").textContent = data.pullQuote;
+    document.getElementById("pull-cite").textContent = data.pullCite;
+
+    document.getElementById("video-label").textContent = data.videoLabel;
+    document.getElementById("video-frame").src = `https://www.youtube.com/embed/${data.videoId}`;
+    document.getElementById("video-caption").textContent = data.videoCaption;
+
+    const afterWrap2 = document.getElementById("body-paras-3");
+    afterWrap2.innerHTML = "";
+    data.bodyAfter.forEach(t => afterWrap2.appendChild(paraEl(t)));
+
+    const ctaTitleEl = document.getElementById("cta-title");
+    if (data.ctaHighlight && data.ctaTitle.includes(data.ctaHighlight)) {
+        const [before] = data.ctaTitle.split(data.ctaHighlight);
+        ctaTitleEl.innerHTML = `${before}<span class="highlight">${data.ctaHighlight}</span>`;
+    } else {
+        ctaTitleEl.textContent = data.ctaTitle;
+    }
+    document.getElementById("cta-text").textContent = data.ctaText;
+    document.getElementById("cta-btn").href = `shopp.html?filter=${encodeURIComponent(data.ctaFilter)}`;
+
+    const rel = data.related;
+    document.getElementById("related-card").href = `article.html?id=${rel.id}`;
+    document.getElementById("related-img").src = rel.img;
+    document.getElementById("related-title").textContent = rel.title;
+    document.getElementById("related-sub").textContent = rel.sub;
+
+    document.getElementById("mailShare").href =
+        `mailto:?subject=${encodeURIComponent(data.title + " | Fresh Link")}&body=${encodeURIComponent("Thought you'd like this: " + window.location.href)}`;
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+const articleId = urlParams.get("id") || "organic";
+renderArticle(articleId);
+
+/* ============================================================
+   LISTEN TO THIS ARTICLE — read-aloud toggle
+   ============================================================ */
+(function(){
+    const btn = document.getElementById("listenBtn");
+    const icon = document.getElementById("listenIcon");
+    const label = document.getElementById("listenLabel");
+
+    if (!("speechSynthesis" in window)) {
+        btn.setAttribute("data-unsupported", "true");
+        return;
+    }
+
+    let queue = [];
+    let queueIndex = 0;
+    let isPlaying = false;
+    let isPaused = false;
+
+    function buildQueue(){
+        queue = Array.from(document.querySelectorAll("#article-body .tts-para"))
+            .filter(el => el.textContent.trim().length > 0);
+        queueIndex = 0;
+    }
+
+    function clearHighlight(){
+        document.querySelectorAll(".tts-active").forEach(el => el.classList.remove("tts-active"));
+    }
+
+    function speakNext(){
+        clearHighlight();
+        if (queueIndex >= queue.length) {
+            stopAll();
+            return;
+        }
+        const el = queue[queueIndex];
+        el.classList.add("tts-active");
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+
+        const utter = new SpeechSynthesisUtterance(el.textContent);
+        utter.rate = 0.98;
+        utter.onend = () => {
+            queueIndex++;
+            if (isPlaying) speakNext();
+        };
+        window.speechSynthesis.speak(utter);
+    }
+
+    function startAll(){
+        buildQueue();
+        isPlaying = true;
+        isPaused = false;
+        btn.classList.add("playing");
+        icon.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        label.textContent = "Reading…";
+        speakNext();
+    }
+
+    function pauseAll(){
+        window.speechSynthesis.pause();
+        isPaused = true;
+        btn.classList.remove("playing");
+        icon.innerHTML = '<i class="fa-solid fa-play"></i>';
+        label.textContent = "Paused — tap to resume";
+    }
+
+    function resumeAll(){
+        window.speechSynthesis.resume();
+        isPaused = false;
+        btn.classList.add("playing");
+        icon.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        label.textContent = "Reading…";
+    }
+
+    function stopAll(){
+        window.speechSynthesis.cancel();
+        isPlaying = false;
+        isPaused = false;
+        queueIndex = 0;
+        btn.classList.remove("playing");
+        icon.innerHTML = '<i class="fa-solid fa-play"></i>';
+        label.textContent = "Listen to this article";
+        clearHighlight();
+    }
+
+    btn.addEventListener("click", () => {
+        if (!isPlaying) {
+            startAll();
+        } else if (isPaused) {
+            resumeAll();
+        } else {
+            pauseAll();
+        }
+    });
+
+    window.addEventListener("beforeunload", () => window.speechSynthesis.cancel());
+})();
+</script>
+
+</body>
+<footer class="site-footer">
+  <div class="footer-widgets">
+    <div class="container">
+      <div class="footer-columns">
+        <div class="footer-column">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="../home/home.html">Home</a></li>
+            <li><a href="../shop/shopp.html">Shop</a></li>
+            <li><a href="aboutt.html">About Us</a></li>
+            <li><a href="../contact/contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="../shop/shopp.html?filter=Roots%20%26%20Tubers">Roots &amp; Tubers</a></li>
+            <li><a href="../shop/shopp.html?filter=Vegetables">Vegetables</a></li>
+            <li><a href="../shop/shopp.html?filter=Fruits">Fruits</a></li>
+            <li><a href="../shop/shopp.html?filter=Eggs">Eggs</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Helpful Links</h4>
+          <ul>
+            <li><a href="../delivery/delivery.html">Delivery Terms</a></li>
+            <li><a href="../delivery/return.html">Return Policy</a></li>
+            <li><a href="../orders/orders.html">How to Order</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Stay Connected</h4>
+          <ul>
+            <li><a href="../wishlist/wishlist.html">Wishlist</a></li>
+            <li><a href="../cart/cart.html">Cart</a></li>
+            <li><a href="../subscription/subscription.html">Subscription</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="footer-bottom-inner">
+        <div class="copyright">
+          <span class="circle-icon">✓</span>
+          Privacy Policy / © 2026 Fresh Link – All Rights Reserved
+        </div>
+          <a href="https://www.instagram.com/freshy_board?igsh=MjNmemVvYXNna2Y1" target="_blank" rel="noopener" class="footer-instagram-link">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Follow us on Instagram</span>
+          </a>
+      </div>
+    </div>
+  </div>
+</footer>
+</html>

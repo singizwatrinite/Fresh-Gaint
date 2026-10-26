@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account & Authentication | Fresh Link</title>
+<link rel="stylesheet" href="login.css">
+<link rel="stylesheet" href="../shared/shared.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="../shared/products.js"></script>
+<script src="../shared/customer-auth.js"></script>
+</head>
+
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<div class="top-bar">
+    <div class="top-left">
+        <span><i class="fa-solid fa-truck"></i> We deliver everywhere in KGL</span>
+        <span><i class="fa-solid fa-phone"></i> 0783628833</span>
+        <a href="https://www.instagram.com/freshy_board?igsh=MjNmemVvYXNna2Y1" target="_blank" rel="noopener" class="ig-link"><i class="fa-brands fa-instagram"></i> freshy_board</a>
+    </div>
+
+    <div class="top-right">
+        <a href="../home/home.html"><i class="fa-regular fa-user"></i> Login / Create Account</a>
+        
+        <a href="../wishlist/wishlist.html"><i class="fa-regular fa-heart"></i> Wishlist</a>
+
+
+        <select class="currency-select" aria-label="Currency"><option value="RWF">RWF</option></select>
+    </div>
+</div>
+
+<!-- ================= MAIN NAVBAR ================= -->
+<div class="main-nav">
+    <!-- Logo -->
+    <div class="logo">
+        <a href="../home/home.html" class="logo" aria-label="Fresh Link home">
+            <img src="../images/logo-removebg-preview.png" alt="Fresh Link logo">
+        </a>
+    </div>
+
+    <!-- Search -->
+    <div class="search-bar">
+        <input type="text" placeholder="Search for products...">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+
+    <!-- Cart -->
+    <a href="../cart/cart.html" class="cart-box">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="cart-amount">0 RWF</span>
+    </a>
+</div>
+
+<!-- ================= LOWER NAV ================= -->
+<div class="lower-nav">
+    <ul class="nav-links">
+        <li><a href="../home/home.html">Home</a></li>
+        <li><a href="../about/aboutt.html">About Us</a></li>
+        <li><a href="../shop/shopp.html">Shop</a></li>
+        <li><a href="../subscription/subscription.html">Subscription</a></li>
+        <li><a href="../contact/contact.html">Contact</a></li>
+    </ul>
+
+    <div class="highlight-links">
+        <a href="../shop/shopp.html?filter=recommended" class="recommended">Recommended</a>
+        <a href="../shop/shopp.html?filter=special" class="offer">Special Offer</a>
+    </div>
+</div>
+<!-- 🔐 Forgot Password Modal -->
+<div class="forgot-modal" id="forgotModal">
+    <div class="forgot-box glass">
+        <h3>Reset Password 🔐</h3>
+        <p>Enter your email to receive password recovery instructions</p>
+        <div id="forgotNotice" style="display:none; padding:8px 12px; border-radius:8px; font-size:13px; margin-bottom:12px; text-align:center;"></div>
+        <input type="email" id="forgotEmail" placeholder="Enter your email" required>
+        <button id="forgotSubmitBtn" onclick="sendReset()">Send Recovery Instructions</button>
+        <span class="close" onclick="closeForgot()">Cancel</span>
+    </div>
+</div>
+
+<section class="auth-section">
+    
+    <div class="auth-card glass">
+
+        <div id="checkoutNotice" style="display:none; background:#ecfdf5; border:1px solid #10b981; color:#065f46; padding:12px; border-radius:12px; margin-bottom:16px; font-size:14px; text-align:center; font-weight:500;">
+            <i class="fa-solid fa-cart-shopping"></i> Please log in or create an account to proceed to checkout. Your cart items are saved!
+        </div>
+
+        <!-- Tabs -->
+        <div class="auth-tabs">
+            <button class="tab active" onclick="showRegister()">Register</button>
+            <button class="tab" onclick="showLogin()">Login</button>
+        </div>
+
+        <!-- Register -->
+        <form class="auth-form active" id="registerForm">
+            <h2>Create Account 🌱</h2>
+
+            <div id="regError" style="display:none; color:#dc2626; background:#fee2e2; padding:8px 12px; border-radius:8px; font-size:13px; margin-bottom:12px; text-align:center;"></div>
+
+            <div class="field">
+                <i class="fa fa-user"></i>
+                <input type="text" id="regName" placeholder="Full Name" required>
+            </div>
+
+            <div class="field">
+                <i class="fa fa-envelope"></i>
+                <input type="email" id="regEmail" placeholder="Email" required>
+            </div>
+
+            <div class="field">
+                <i class="fa fa-phone"></i>
+                <input type="tel" id="regPhone" placeholder="Phone number (optional)">
+            </div>
+
+            <div class="field">
+                <i class="fa fa-lock"></i>
+                <input type="password" id="regPassword" placeholder="Password" required minlength="6">
+            </div>
+
+            <label class="terms">
+                <input type="checkbox" required>
+                I agree to the terms & conditions
+            </label>
+
+            <button type="submit" class="main-btn" id="regBtn">Register</button>
+        </form>
+
+        <!-- Login -->
+        <form class="auth-form" id="loginForm">
+            <h2>Welcome Back 🍎</h2>
+
+            <div id="loginError" style="display:none; color:#dc2626; background:#fee2e2; padding:8px 12px; border-radius:8px; font-size:13px; margin-bottom:12px; text-align:center;"></div>
+
+            <div class="field">
+                <i class="fa fa-envelope"></i>
+                <input type="email" id="loginEmail" placeholder="Email" required>
+            </div>
+
+            <div class="field">
+                <i class="fa fa-lock"></i>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+            </div>
+
+            <a href="#" class="forgot" onclick="openForgot()">Forgot password?</a>
+            <button type="submit" class="main-btn" id="loginBtn">Login</button>
+        </form>
+
+        <!-- Reset Password Form (with token) -->
+        <form class="auth-form" id="resetPasswordForm" style="display:none;">
+            <h2>Set New Password 🔑</h2>
+            <p style="color:#64748b; font-size:13px; margin-bottom:16px; text-align:center;">Enter your new password below to recover your account.</p>
+
+            <div id="resetError" style="display:none; color:#dc2626; background:#fee2e2; padding:8px 12px; border-radius:8px; font-size:13px; margin-bottom:12px; text-align:center;"></div>
+            <div id="resetSuccess" style="display:none; color:#065f46; background:#ecfdf5; padding:8px 12px; border-radius:8px; font-size:13px; margin-bottom:12px; text-align:center;"></div>
+
+            <input type="hidden" id="resetTokenInput">
+
+            <div class="field">
+                <i class="fa fa-lock"></i>
+                <input type="password" id="resetNewPassword" placeholder="New Password (min 6 characters)" required minlength="6">
+            </div>
+
+            <div class="field">
+                <i class="fa fa-lock"></i>
+                <input type="password" id="resetConfirmPassword" placeholder="Confirm New Password" required minlength="6">
+            </div>
+
+            <button type="submit" class="main-btn" id="resetSubmitBtn">Update Password</button>
+            <p style="text-align:center; margin-top:12px; font-size:13px;">
+                <a href="#" onclick="showLogin()" style="color:#16a34a; font-weight:600;">Back to Login</a>
+            </p>
+        </form>
+
+    </div>
+</section>
+
+
+  <!-- Your page content here -->
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-widgets">
+      <div class="container">
+        <div class="footer-columns">
+
+          <!-- Column 1: Help -->
+          <div class="footer-column">
+            <h4>Help</h4>
+            <ul>
+              <li><a href="#">How to Make an Order?</a></li>
+              <li><a href="#">Delivery Terms</a></li>
+              <li><a href="#">My Orders</a></li>
+              <li><a href="#">Return</a></li>
+              <li><a href="#">About Us</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Shop -->
+          <div class="footer-column">
+            <h4>Shop</h4>
+            <ul>
+              <li><a href="#">Products</a></li>
+              <li><a href="#">Cart</a></li>
+              <li><a href="#">Wishlist</a></li>
+              <li><a href="#">My Account</a></li>
+              <li><a href="#">Contacts</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Categories (fresh grocery style) -->
+          <div class="footer-column">
+            <h4>Categories</h4>
+            <ul>
+              <li><a href="#">Fruits</a></li>
+              <li><a href="#">Vegetables</a></li>
+              <li><a href="../shop/shopp.html?filter=Dairy">Dairy</a></li>
+              <li><a href="../shop/shopp.html?filter=Bakery">Bakery</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-inner">
+          <div class="copyright">
+            <span class="circle-icon">✓</span>
+            Privacy Policy / © 2026 Fresh Link – All Rights Reserved
+          </div>
+          <a href="https://www.instagram.com/freshy_board?igsh=MjNmemVvYXNna2Y1" target="_blank" rel="noopener" class="footer-instagram-link">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Follow us on Instagram</span>
+          </a>
+          <div class="back-to-top">
+            <a href="#" class="to-top"><i class="fas fa-chevron-up"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<script src="login.js"></script>
+</body>
+</html>

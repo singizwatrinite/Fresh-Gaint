@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Orders | Fresh Link</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../shared/shared.css">
+<script src="../shared/products.js"></script>
+<script src="../shared/customer-auth.js"></script>
+</head>
+<body class="info-body">
+
+<!-- ================= TOP BAR ================= -->
+<div class="top-bar">
+    <div class="top-left">
+        <span><i class="fa-solid fa-truck"></i> We deliver everywhere in KGL</span>
+        <span><i class="fa-solid fa-phone"></i> 0783628833</span>
+        <a href="https://www.instagram.com/freshy_board?igsh=MjNmemVvYXNna2Y1" target="_blank" rel="noopener" class="ig-link"><i class="fa-brands fa-instagram"></i> freshy_board</a>
+    </div>
+    <div class="top-right">
+        <a href="../login/login.html?tab=login" target="_blank" rel="noopener"><i class="fa-regular fa-user"></i> Login</a> / <a href="../login/login.html?tab=register" target="_blank" rel="noopener">Create Account</a>
+        <a href="../wishlist/wishlist.html" target="_blank" rel="noopener"><i class="fa-regular fa-heart"></i> Wishlist</a>
+        <select class="currency-select" aria-label="Currency"><option value="RWF">RWF</option></select>
+    </div>
+</div>
+
+<!-- ================= MAIN NAVBAR ================= -->
+<div class="main-nav">
+    <a href="../home/home.html" class="logo" aria-label="Fresh Link home">
+        <img src="../images/logo-removebg-preview.png" alt="Fresh Link logo">
+    </a>
+    <div class="search-bar">
+        <input type="text" placeholder="Search for products...">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+    <a href="../cart/cart.html" class="cart-box">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="cart-amount">0 RWF</span>
+    </a>
+</div>
+
+<!-- ================= LOWER NAV ================= -->
+<div class="lower-nav">
+    <ul class="nav-links">
+        <li><a href="../home/home.html">Home</a></li>
+        <li><a href="../about/aboutt.html" target="_blank" rel="noopener">About Us</a></li>
+        <li><a href="../shop/shopp.html">Shop</a></li>
+        <li><a href="../subscription/subscription.html">Subscription</a></li>
+        <li><a href="../contact/contact.html">Contact</a></li>
+    </ul>
+    <div class="highlight-links">
+        <a href="../shop/shopp.html?filter=recommended" target="_blank" rel="noopener" class="recommended">Recommended</a>
+        <a href="../shop/shopp.html?filter=special" target="_blank" rel="noopener" class="offer">Special Offer</a>
+    </div>
+</div>
+
+<!-- ================= PAGE CONTENT ================= -->
+<section class="info-hero">
+    <div class="crumb"><a href="../home/home.html">Home</a> <i class="fa-solid fa-chevron-right"></i> Help <i class="fa-solid fa-chevron-right"></i> My Orders</div>
+    <h1>My orders</h1>
+    <p>Track what you've bought and reorder your usual basket in a couple of taps.</p>
+</section>
+
+<main class="info-main">
+    <div id="gateCard" class="info-card gate-card">
+        <i class="fa-solid fa-lock gate-icon"></i>
+        <h2>Log in to see your orders</h2>
+        <p>Your order history is tied to your Fruitiva account. Log in or create one to view past deliveries, track anything currently on its way, and reorder in one tap.</p>
+        <a href="../login/login.html?tab=login" class="gate-btn"><i class="fa-regular fa-user"></i> Log in to my account</a>
+    </div>
+
+    <div id="ordersListSection" style="display:none; width:100%; max-width:850px; margin:0 auto;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h2 style="font-size:22px; font-weight:700;">Your Order History</h2>
+            <button onclick="loadCustomerOrders()" style="background:#f3f4f6; border:none; padding:8px 14px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+        </div>
+        <div id="ordersContent">
+            <p style="text-align:center; padding:30px; color:#6b7280;">Loading your orders...</p>
+        </div>
+    </div>
+
+    <div id="helpCard" class="info-card" style="margin-top:30px;">
+        <h2><i class="fa-regular fa-circle-question"></i> Need help with an order?</h2>
+        <p>If you have any questions about a recent delivery or want to make changes, our support team is available everyday.</p>
+        <div class="contact-strip">
+            <i class="fa-solid fa-phone"></i>
+            <p>Call or WhatsApp us at <strong>+250 783 628 833</strong> or visit our <a href="../contact/contact.html">Contact page</a>.</p>
+        </div>
+    </div>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+    <div class="footer-widgets">
+        <div class="container">
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h4>Help</h4>
+                    <ul>
+                        <li><a href="orders.html" target="_blank" rel="noopener">How to Make an Order?</a></li>
+                        <li><a href="../delivery/delivery.html" target="_blank" rel="noopener">Delivery Terms</a></li>
+                        <li><a href="myorders.html" target="_blank" rel="noopener">My Orders</a></li>
+                        <li><a href="../delivery/return.html" target="_blank" rel="noopener">Return</a></li>
+                        <li><a href="../about/aboutt.html" target="_blank" rel="noopener">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="../shop/shopp.html" target="_blank" rel="noopener">Products</a></li>
+                        <li><a href="../cart/cart.html" target="_blank" rel="noopener">Cart</a></li>
+                        <li><a href="../wishlist/wishlist.html" target="_blank" rel="noopener">Wishlist</a></li>
+                        <li><a href="../login/login.html?tab=login" target="_blank" rel="noopener">My Account</a></li>
+                        <li><a href="../contact/contact.html" target="_blank" rel="noopener">Contacts</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="../shop/shopp.html?filter=Fruits" target="_blank" rel="noopener">Fruits</a></li>
+                        <li><a href="../shop/shopp.html?filter=Vegetables" target="_blank" rel="noopener">Vegetables</a></li>
+                        <li><a href="../shop/shopp.html?filter=Dairy">Dairy</a></li>
+                        <li><a href="../shop/shopp.html?filter=Bakery">Bakery</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="footer-bottom-inner">
+                <div class="copyright">
+                    <span class="circle-icon">✓</span>
+                    Privacy Policy / © 2026 Fresh Link – All Rights Reserved
+                </div>
+          <a href="https://www.instagram.com/freshy_board?igsh=MjNmemVvYXNna2Y1" target="_blank" rel="noopener" class="footer-instagram-link">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Follow us on Instagram</span>
+          </a>
+                <div class="back-to-top">
+                    <a href="#" class="to-top"><i class="fas fa-chevron-up"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+async function loadCustomerOrders() {
+    const gateCard = document.getElementById("gateCard");
+    const ordersListSection = document.getElementById("ordersListSection");
+    const ordersContent = document.getElementById("ordersContent");
+
+    if (!window.isCustomerLoggedIn || !window.isCustomerLoggedIn()) {
+        if (gateCard) gateCard.style.display = "block";
+        if (ordersListSection) ordersListSection.style.display = "none";
+        return;
+    }
+
+    if (gateCard) gateCard.style.display = "none";
+    if (ordersListSection) ordersListSection.style.display = "block";
+    ordersContent.innerHTML = '<p style="text-align:center; padding:30px; color:#6b7280;">Loading your orders...</p>';
+
+    try {
+        const token = window.getCustomerToken();
+        const backendBase = typeof BACKEND_URL !== "undefined" ? BACKEND_URL : "http://localhost:4000";
+        const res = await fetch(backendBase + "/api/orders", {
+            headers: { "Authorization": "Bearer " + token }
+        });
+
+        if (!res.ok) {
+            throw new Error("HTTP " + res.status);
+        }
+
+        const data = await res.json();
+        const orders = data.data || data;
+
+        if (!Array.isArray(orders) || orders.length === 0) {
+            ordersContent.innerHTML = [
+                '<div style="text-align:center; padding:40px 20px; background:white; border-radius:16px; border:1px solid #e5e7eb;">',
+                '  <i class="fa-solid fa-basket-shopping" style="font-size:40px; color:#9ca3af; margin-bottom:12px;"></i>',
+                '  <h3 style="font-size:18px; font-weight:700; margin-bottom:6px;">No orders yet</h3>',
+                '  <p style="color:#6b7280; font-size:14px; margin-bottom:16px;">You haven\'t placed any orders with this account yet.</p>',
+                '  <a href="../shop/shopp.html" style="display:inline-block; background:#16a34a; color:white; padding:10px 20px; border-radius:10px; font-weight:600; text-decoration:none;">Start Shopping</a>',
+                '</div>'
+            ].join("");
+            return;
+        }
+
+        const statusColors = {
+            "Pending": { bg: "#fef3c7", text: "#92400e" },
+            "Confirmed": { bg: "#dbeafe", text: "#1e40af" },
+            "Preparing": { bg: "#e0e7ff", text: "#3730a3" },
+            "Delivered": { bg: "#dcfce7", text: "#166534" },
+            "Cancelled": { bg: "#fee2e2", text: "#991b1b" }
+        };
+
+        ordersContent.innerHTML = orders.map(function(order) {
+            const sc = statusColors[order.status] || { bg: "#f3f4f6", text: "#374151" };
+            const itemsHtml = (order.items || []).map(function(item) {
+                return [
+                    '<div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px dashed #f3f4f6; font-size:14px;">',
+                    '  <div><span style="font-weight:600;">' + item.productName + '</span> <span style="color:#6b7280;">× ' + item.quantity + ' ' + (item.unit || '') + '</span></div>',
+                    '  <div style="font-weight:600;">RWF ' + ((item.price || 0) * (item.quantity || 1)).toLocaleString() + '</div>',
+                    '</div>'
+                ].join("");
+            }).join("");
+
+            return [
+                '<div style="background:white; border:1px solid #e5e7eb; border-radius:16px; padding:20px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,0.05);">',
+                '  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">',
+                '    <div>',
+                '      <span style="font-weight:800; font-size:16px; color:#111827;">' + (order.displayId || order.id) + '</span>',
+                '      <span style="color:#6b7280; font-size:13px; margin-left:10px;"><i class="fa-regular fa-calendar"></i> ' + (order.date || '') + ' ' + (order.time || '') + '</span>',
+                '    </div>',
+                '    <span style="background:' + sc.bg + '; color:' + sc.text + '; padding:4px 12px; border-radius:999px; font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:0.5px;">' + order.status + '</span>',
+                '  </div>',
+                '  <div style="margin-bottom:14px;">' + itemsHtml + '</div>',
+                '  <div style="display:flex; justify-content:space-between; align-items:center; padding-top:10px; font-size:14px;">',
+                '    <div style="color:#4b5563; font-size:13px;"><i class="fa-solid fa-location-dot"></i> ' + (order.deliveryAddress || "Standard Delivery") + ' | <i class="fa-solid fa-credit-card"></i> ' + (order.payment || "Cash") + '</div>',
+                '    <div style="font-size:16px; font-weight:800; color:#16a34a;">Total: RWF ' + (order.total || 0).toLocaleString() + '</div>',
+                '  </div>',
+                '</div>'
+            ].join("");
+        }).join("");
+
+    } catch (err) {
+        ordersContent.innerHTML = '<p style="text-align:center; padding:30px; color:#ef4444;">Could not load orders. Please make sure you are signed in and backend is running.</p>';
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    loadCustomerOrders();
+});
+</script>
+</body>
+</html>
