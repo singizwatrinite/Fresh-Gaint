@@ -5,6 +5,7 @@
 // ============================================================
 
 const BACKEND_URL = "http://localhost:4000";
+window.BACKEND_URL = BACKEND_URL;
 
 // ── Static fallback data (used if API is unreachable) ─────────────────────
 const STATIC_PRODUCTS = [
@@ -387,7 +388,15 @@ function resolveImageUrl(img) {
   const t = img.trim();
   if (!t) return "../images/tomatoes.jpg";
   // Already absolute
-  if (t.startsWith("http://") || t.startsWith("https://")) return t;
+  if (t.startsWith("http://") || t.startsWith("https://")) {
+    const clean = t.replace(/q_auto:auto/g, "q_auto");
+    if (clean.includes("res.cloudinary.com") && clean.includes("/image/upload/")) {
+      if (!clean.includes("f_auto") && !clean.includes("q_auto")) {
+        return clean.replace("/image/upload/", "/image/upload/f_auto,q_auto,c_limit,w_1200,h_1200/");
+      }
+    }
+    return clean;
+  }
   // Backend-relative upload path
   if (t.startsWith("/uploads/")) return BACKEND_URL + t;
   if (t.startsWith("uploads/")) return BACKEND_URL + "/" + t;
@@ -439,6 +448,9 @@ function mapApiProduct(apiProduct) {
     rawCreatedAt: apiProduct.rawCreatedAt || null,
   };
 }
+
+window.resolveImageUrl = resolveImageUrl;
+window.mapApiProduct = mapApiProduct;
 
 // ── Boot: load from API, fall back to static ──────────────────────────────
 window.isProductsLoading = true;

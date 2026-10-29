@@ -70,7 +70,7 @@
             <div class="space-y-4">
                 <div class="bg-white border border-gray-100 rounded-3xl p-8 flex items-center justify-center relative shadow-sm">
                     <span class="absolute top-6 left-6 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">In Stock</span>
-                    <img id="p-img" src="" onerror="this.onerror=null;this.src="../images/tomatoes.jpg";" class="w-full max-h-[450px] object-contain drop-shadow-lg hover:scale-105 transition duration-500" alt="Product Image">
+                    <img id="p-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f9fafb'/%3E%3C/svg%3E" class="w-full max-h-[450px] object-contain drop-shadow-lg hover:scale-105 transition duration-500" alt="Product Image">
                 </div>
             </div>
 
@@ -220,45 +220,93 @@
     <!-- Script to load product details and related items dynamically -->
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const rawId = urlParams.get("id");
-        const numericId = parseInt(rawId);
+        let rawId = (urlParams.get("id") || "").trim();
 
-        function findProduct() {
-            if (!window.products || window.products.length === 0) return null;
-            if (!rawId) return window.products[0];
-            return window.products.find(function(p) { return p.id == numericId; }) ||
-                   window.products.find(function(p) { return String(p.id) === rawId || String(p._uuid) === rawId; }) ||
-                   window.products[0];
+        // If server redirect stripped query string (e.g. /shop/product1.html -> /shop/product1), restore from sessionStorage
+        if (!rawId) {
+            try {
+                rawId = (sessionStorage.getItem("freshlink_view_product_id") || "").trim();
+            } catch (e) {}
+        }
+        if (rawId && !urlParams.get("id")) {
+            try {
+                window.history.replaceState({ id: rawId }, "", window.location.pathname + "?id=" + encodeURIComponent(rawId));
+            } catch (e) {}
         }
 
-        function renderProductPage() {
-            const product = findProduct();
+        let activeProduct = null;
+
+        function matchProduct(p) {
+            if (!p || !rawId) return false;
+            const sRaw = String(rawId).toLowerCase();
+            const pId = String(p.id || "").toLowerCase();
+            const pUuid = String(p._uuid || "").toLowerCase();
+            if (pId === sRaw || pUuid === sRaw) return true;
+            if (/^\d+$/.test(rawId)) {
+                const n = Number(rawId);
+                if (Number(p.id) === n || Number(p.legacyId) === n) return true;
+            }
+            return false;
+        }
+
+        function findProductInMemory() {
+            if (!window.products || window.products.length === 0 || !rawId) return null;
+            return window.products.find(matchProduct) || null;
+        }
+
+        function renderProductNotFound() {
+            document.title = "Product Not Found | Fresh Link";
+            document.getElementById("p-name").innerText = "Product not found";
+            document.getElementById("p-desc").innerText = "We couldn't find the requested product in our database. It may have been removed or the link is incorrect.";
+            document.getElementById("p-price").innerText = "RWF 0";
+
+            const imgEl = document.getElementById("p-img");
+            if (imgEl) {
+                imgEl.src = "../images/logo-removebg-preview.png";
+                imgEl.alt = "Not found";
+            }
+            const nutrContainer = document.getElementById("nutrition-container");
+            if (nutrContainer) {
+                nutrContainer.innerHTML = '<p class="text-gray-500 italic py-2">Nutrition information not available.</p>';
+            }
+            const storageEl = document.getElementById("nutr-storage");
+            if (storageEl) {
+                storageEl.innerHTML = '<span class="text-gray-500 italic">No storage tips available.</span>';
+            }
+            const relatedTitle = document.getElementById("related-title");
+            if (relatedTitle) relatedTitle.innerText = "Browse Other Products";
+            const relatedGrid = document.getElementById("related-grid");
+            if (relatedGrid && window.products && window.products.length > 0) {
+                renderRelatedProducts(window.products[0]);
+            }
+        }
+
+        function renderProductDetails(product) {
             if (!product) {
-                document.getElementById("p-name").innerText = "Product not found";
-                document.getElementById("p-desc").innerText = "This product could not be found. It may have been removed.";
-                const nutrContainer = document.getElementById("nutrition-container");
-                if (nutrContainer) nutrContainer.innerHTML = '<p class="text-gray-500 italic py-2">Nutrition information not available.</p>';
-                const storageEl = document.getElementById("nutr-storage");
-                if (storageEl) storageEl.innerHTML = '<span class="text-gray-500 italic">Storage instructions not specified.</span>';
+                renderProductNotFound();
                 return;
             }
+
+            activeProduct = product;
 
             // Render basic product details
             document.title = product.name + " | Fresh Link";
             document.getElementById("p-name").innerText = product.name;
-            document.getElementById("p-desc").innerText = product.desc || "";
+            document.getElementById("p-desc").innerText = product.desc || product.description || "";
 
             // Show price with the product's currency
             document.getElementById("p-price").innerText = "RWF " + (Number(product.price) || 0).toLocaleString();
 
-            document.getElementById("p-img").src = product.img;
-            document.getElementById("p-img").alt = product.name;
-            document.getElementById("p-img").onerror = function() {
+            const imgEl = document.getElementById("p-img");
+            imgEl.onerror = function() {
                 this.onerror = null;
-                this.src = "tomatoes.jpg";
+                this.src = "../images/logo-removebg-preview.png";
             };
+            const rawSrc = product.img || product.imageUrl || product.image || "";
+            imgEl.src = typeof window.resolveImageUrl === "function" ? window.resolveImageUrl(rawSrc) : rawSrc;
+            imgEl.alt = product.name;
 
-            // Dynamic Nutrition Information - NEVER invent fake values
+            // Dynamic Nutrition Information
             const nutrContainer = document.getElementById("nutrition-container");
             const hasNutrition = (product.calories !== null && product.calories !== undefined && String(product.calories).trim() !== "") ||
                                  (product.fat !== null && product.fat !== undefined && String(product.fat).trim() !== "") ||
@@ -279,67 +327,141 @@
                 }
             }
 
-            // Dynamic Storage Tips - Show actual or clean fallback
+            // Dynamic Storage Tips
             const storageEl = document.getElementById("nutr-storage");
             if (storageEl) {
-                if (product.storageInstructions && String(product.storageInstructions).trim() !== "") {
-                    storageEl.innerText = product.storageInstructions;
+                const storageText = product.storageInstructions || product.storage || "";
+                if (storageText && String(storageText).trim() !== "") {
+                    storageEl.innerText = storageText;
                 } else {
                     storageEl.innerHTML = '<span class="text-gray-500 italic">Storage instructions not specified.</span>';
                 }
             }
 
             // Related Products
-            document.getElementById("related-title").innerText = "More in " + (product.cat || "Store");
-            const relatedProducts = window.products.filter(function(p) {
-                return p.cat === product.cat && p.id != product.id;
-            });
+            renderRelatedProducts(product);
+
+            // Bind Add to basket button
+            const addBtn = document.getElementById("add-basket-btn");
+            if (addBtn) {
+                addBtn.onclick = function() {
+                    const qtyInput = document.getElementById("qtyInput");
+                    const qty = parseInt(qtyInput ? qtyInput.value : 1) || 1;
+                    if (window.addToCart) {
+                        window.addToCart(product.id, qty);
+                    }
+                };
+            }
+        }
+
+        function renderRelatedProducts(product) {
+            const relatedTitle = document.getElementById("related-title");
             const relatedGrid = document.getElementById("related-grid");
+            if (!relatedGrid) return;
+
+            if (relatedTitle) {
+                relatedTitle.innerText = "More in " + (product.cat || "Store");
+            }
+
+            const allProducts = Array.isArray(window.products) ? window.products : [];
+            const relatedProducts = allProducts.filter(function(p) {
+                return p.cat === product.cat && String(p.id) !== String(product.id);
+            });
 
             if (relatedProducts.length === 0) {
                 relatedGrid.innerHTML = '<p class="text-center text-gray-500 col-span-4">No other products in this category.</p>';
-            } else {
-                relatedGrid.innerHTML = relatedProducts.map(function(rp) {
-                    const rpPrice = "RWF " + (Number(rp.price) || 0).toLocaleString();
-                    return '<div class="bg-white border border-gray-100 rounded-3xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition">' +
-                        '<div>' +
-                            '<a href="product1.html?id=" + rp.id + '" class="block h-36 bg-gray-50 rounded-2xl flex items-center justify-center overflow-hidden mb-4">' +
-                                '<img src="' + rp.img + '" onerror="this.onerror=null;this.src=\'../images/tomatoes.jpg\';" class="h-24 object-contain hover:scale-110 transition duration-300" alt="' + rp.name + '">' +
-                            '</a>' +
-                            '<a href="product1.html?id=" + rp.id + '" class="hover:text-green-600">' +
-                                '<h4 class="font-bold text-lg">' + rp.name + '</h4>' +
-                            '</a>' +
-                        '</div>' +
-                        '<div class="mt-4 flex items-center justify-between">' +
-                            '<span class="font-black text-gray-900">' + rpPrice + '</span>' +
-                            '<button onclick="window.addToCart(' + JSON.stringify(rp.id) + ')" class="bg-green-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-green-700 active:scale-95 transition">' +
-                                'Add to Cart' +
-                            '</button>' +
-                        '</div>' +
-                    '</div>';
-                }).join("");
+                return;
             }
 
-            // Bind Add to basket button
-            document.getElementById("add-basket-btn").onclick = function() {
-                var qtyInput = document.getElementById("qtyInput");
-                var qty = parseInt(qtyInput.value) || 1;
-                window.addToCart(product.id, qty);
-            };
+            relatedGrid.innerHTML = relatedProducts.map(function(rp) {
+                const rpPrice = "RWF " + (Number(rp.price) || 0).toLocaleString();
+                const rpId = encodeURIComponent(String(rp.id));
+                const safeName = (rp.name || "").replace(/"/g, "&quot;");
+                const imgSrc = typeof window.resolveImageUrl === "function" ? window.resolveImageUrl(rp.img) : rp.img;
+                return '<div class="bg-white border border-gray-100 rounded-3xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition">' +
+                    '<div>' +
+                        '<a href="product1.html?id=' + rpId + '" class="block h-36 bg-gray-50 rounded-2xl flex items-center justify-center overflow-hidden mb-4">' +
+                            '<img src="' + imgSrc + '" onerror="this.onerror=null;this.src=\'../images/tomatoes.jpg\';" class="h-24 object-contain hover:scale-110 transition duration-300" alt="' + safeName + '">' +
+                        '</a>' +
+                        '<a href="product1.html?id=' + rpId + '" class="hover:text-green-600">' +
+                            '<h4 class="font-bold text-lg">' + rp.name + '</h4>' +
+                        '</a>' +
+                    '</div>' +
+                    '<div class="mt-4 flex items-center justify-between">' +
+                        '<span class="font-black text-gray-900">' + rpPrice + '</span>' +
+                        '<button onclick="window.addToCart(\'' + String(rp.id) + '\')" class="bg-green-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-green-700 active:scale-95 transition">' +
+                            'Add to Cart' +
+                        '</button>' +
+                    '</div>' +
+                '</div>';
+            }).join("");
         }
 
-        // Initial render
-        renderProductPage();
+        async function loadProduct() {
+            if (rawId) {
+                // 1. Try finding in loaded products first
+                let product = findProductInMemory();
+                if (product) {
+                    renderProductDetails(product);
+                    return;
+                }
 
-        // Re-render if live API data arrives after DOM
+                // 2. Fetch directly from backend by ID
+                try {
+                    const backendUrl = window.BACKEND_URL || (typeof BACKEND_URL !== "undefined" ? BACKEND_URL : "http://localhost:4000");
+                    const res = await fetch(backendUrl + "/api/products/" + encodeURIComponent(rawId));
+                    if (res.ok) {
+                        const json = await res.json();
+                        const rawItem = json && json.data ? json.data : json;
+                        if (rawItem && (rawItem.id || rawItem.name)) {
+                            const mapper = window.mapApiProduct || (typeof mapApiProduct === "function" ? mapApiProduct : null);
+                            product = mapper ? mapper(rawItem) : rawItem;
+                            renderProductDetails(product);
+                            return;
+                        }
+                    }
+                } catch (err) {
+                    console.warn("Direct fetch for product detail failed:", err);
+                }
+
+                // 3. If products are still being fetched from backend in products.js, wait for event
+                if (window.isProductsLoading) {
+                    return;
+                }
+
+                // 4. Products finished loading, re-try match
+                let lateProduct = findProductInMemory();
+                if (lateProduct) {
+                    renderProductDetails(lateProduct);
+                    return;
+                }
+
+                // 5. Truly not found (do NOT fallback to Tomatoes!)
+                renderProductNotFound();
+            } else {
+                // No ID in URL: show first product
+                if (window.products && window.products.length > 0) {
+                    renderProductDetails(window.products[0]);
+                }
+            }
+        }
+
+        // Initialize immediately
+        loadProduct();
+
+        // When live backend products arrive
         document.addEventListener("productsLoaded", function() {
-            renderProductPage();
+            if (!activeProduct) {
+                loadProduct();
+            } else {
+                renderRelatedProducts(activeProduct);
+            }
         });
 
         // Qty adjust
         function changeQty(amount) {
-            const input = document.getElementById('qtyInput');
-            let val = parseInt(input.value);
+            const input = document.getElementById("qtyInput");
+            let val = parseInt(input.value) || 1;
             val += amount;
             if (val < 1) val = 1;
             input.value = val;
