@@ -40,13 +40,13 @@ function renderProducts(items) {
   grid.innerHTML = items.map(p => `
     <div class="product-card bg-white p-6 rounded-3xl flex flex-col justify-between h-full shadow-sm hover:shadow-md transition">
       <div>
-        <a href="product1.html?id=${p.id}" onclick="try{sessionStorage.setItem('freshlink_view_product_id','${p.id}')}catch(e){}" class="block group relative h-48 bg-gray-50 rounded-2xl flex items-center justify-center overflow-hidden mb-4">
+        <a href="product1.html?id=${p.id}" onclick="try{sessionStorage.setItem('freshlink_view_product_id','${p.id}');localStorage.setItem('freshlink_view_product_id','${p.id}')}catch(e){}" class="block group relative h-48 bg-gray-50 rounded-2xl flex items-center justify-center overflow-hidden mb-4">
           <img src="${p.img}" onerror="this.onerror=null;this.src='../images/logo-removebg-preview.png';" class="h-32 object-contain group-hover:scale-110 transition duration-300" alt="${p.name}">
           <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
             <span class="bg-white text-emerald-700 px-4 py-2 rounded-xl text-sm font-bold shadow-md">View Details</span>
           </div>
         </a>
-        <a href="product1.html?id=${p.id}" onclick="try{sessionStorage.setItem('freshlink_view_product_id','${p.id}')}catch(e){}" class="hover:text-emerald-600 transition-colors">
+        <a href="product1.html?id=${p.id}" onclick="try{sessionStorage.setItem('freshlink_view_product_id','${p.id}');localStorage.setItem('freshlink_view_product_id','${p.id}')}catch(e){}" class="hover:text-emerald-600 transition-colors">
           <h3 class="font-bold text-xl text-gray-900">${p.name}</h3>
         </a>
         <p class="text-sm text-gray-500 mt-1 line-clamp-2">${p.desc || ''}</p>

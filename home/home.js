@@ -174,7 +174,7 @@ function renderRecommendedProducts() {
   grid.innerHTML = recommended.map(p => `
     <div class="shop-style-card">
       <div class="card-image-wrap">
-        <a href="../shop/product1.html?id=${p.id}" onclick="try{sessionStorage.setItem('freshlink_view_product_id','${p.id}')}catch(e){}" class="img-link">
+        <a href="../shop/product1.html?id=${p.id}" onclick="try{sessionStorage.setItem('freshlink_view_product_id','${p.id}');localStorage.setItem('freshlink_view_product_id','${p.id}')}catch(e){}" class="img-link">
           <img src="${p.img}" onerror="this.onerror=null;this.src='../images/tomatoes.jpg';" alt="${p.name}" class="product-img">
           <div class="hover-overlay">
             <span class="view-btn">View Details</span>
@@ -182,7 +182,7 @@ function renderRecommendedProducts() {
         </a>
       </div>
       <div class="card-body">
-        <a href="../shop/product1.html?id=${p.id}" onclick="try{sessionStorage.setItem('freshlink_view_product_id','${p.id}')}catch(e){}" class="title-link">
+        <a href="../shop/product1.html?id=${p.id}" onclick="try{sessionStorage.setItem('freshlink_view_product_id','${p.id}');localStorage.setItem('freshlink_view_product_id','${p.id}')}catch(e){}" class="title-link">
           <h3>${p.name}</h3>
         </a>
         <p class="desc">${p.desc || ""}</p>
