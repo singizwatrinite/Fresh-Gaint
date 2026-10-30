@@ -225,11 +225,39 @@
 
 <!-- THANK YOU MODAL -->
 <div id="thankyou-modal" class="checkout-modal hidden">
-  <div class="checkout-modal-box">
+  <div class="checkout-modal-box thankyou-modal-box">
     <div class="checkout-modal-icon"><i class="fas fa-check-circle"></i></div>
     <h3>Thank You for Your Order!</h3>
-    <p>Your fresh groceries are on their way. We appreciate your trust in Fresh Link.</p>
-    <button id="thankyou-home-btn" class="place-btn">Back to Home</button>
+    <p class="thankyou-order-msg" id="thankyouMsg">Your fresh groceries are on their way. We appreciate your trust in Fresh Link.</p>
+
+    <!-- Delivery & Support Info Section -->
+    <div class="delivery-info-card">
+      <div class="delivery-info-header">
+        <i class="fa-solid fa-truck"></i>
+        <h4>Delivery Information</h4>
+      </div>
+      <p class="delivery-info-text">
+        We have successfully received your order! Our team will contact you and deliver your groceries within <strong class="delivery-highlight">45 minutes</strong>.
+      </p>
+
+      <div class="delivery-support-divider"></div>
+
+      <div class="delivery-support-section">
+        <h5>Need Help With Your Order?</h5>
+        <p class="support-text">
+          If you have any questions or concerns about your order, please feel free to contact us.
+        </p>
+        <div class="support-contact-row">
+          <span class="support-label">Phone:</span>
+          <a href="tel:0785477865" class="support-phone-link"><i class="fa-solid fa-phone"></i> 0785477865</a>
+        </div>
+        <p class="support-website-text">
+          Alternatively, you can <a href="../contact/contact.html" class="support-contact-link">contact us through our website</a>.
+        </p>
+      </div>
+    </div>
+
+    <button id="thankyou-home-btn" class="place-btn thankyou-btn">Continue Shopping</button>
   </div>
 </div>
 

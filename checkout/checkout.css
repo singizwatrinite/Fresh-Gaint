@@ -697,6 +697,144 @@ textarea:focus {
 }
 
 /* ===============================
+   THANK YOU DELIVERY & SUPPORT INFO
+================================ */
+.thankyou-modal-box {
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.thankyou-order-msg {
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.55;
+  margin-bottom: 20px !important;
+}
+
+.delivery-info-card {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin: 0 0 22px 0;
+  text-align: left;
+}
+
+.delivery-info-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.delivery-info-header i {
+  color: #16a34a;
+  font-size: 16px;
+}
+
+.delivery-info-header h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #166534;
+  margin: 0;
+}
+
+.delivery-info-text {
+  font-size: 13.5px;
+  color: #334155;
+  line-height: 1.5;
+  margin: 0 0 14px 0 !important;
+}
+
+.delivery-highlight {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.delivery-support-divider {
+  height: 1px;
+  background: #dcfce7;
+  margin: 14px 0;
+}
+
+.delivery-support-section h5 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+}
+
+.support-text {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0 0 10px 0 !important;
+}
+
+.support-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  margin-bottom: 10px;
+}
+
+.support-label {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.support-phone-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #16a34a;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 4px 10px;
+  background: #ffffff;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.support-phone-link i {
+  font-size: 12px;
+}
+
+.support-phone-link:hover {
+  background: #dcfce7;
+  color: #15803d;
+  transform: translateY(-1px);
+}
+
+.support-website-text {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0 !important;
+}
+
+.support-contact-link {
+  color: #16a34a;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.support-contact-link:hover {
+  color: #15803d;
+}
+
+.thankyou-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ===============================
    RESPONSIVE DESIGN
 ================================ */
 @media (max-width: 880px) {
@@ -719,6 +857,33 @@ textarea:focus {
 
   .checkout-title {
     font-size: 26px;
+  }
+}
+
+@media (max-width: 580px) {
+  .checkout-modal {
+    padding: 12px;
+  }
+
+  .checkout-modal-box {
+    padding: 28px 18px;
+    border-radius: 20px;
+  }
+
+  .delivery-info-card {
+    padding: 14px 14px;
+    border-radius: 14px;
+  }
+
+  .checkout-modal-icon {
+    width: 64px;
+    height: 64px;
+    font-size: 32px;
+    margin-bottom: 14px;
+  }
+
+  .checkout-modal-box h3 {
+    font-size: 1.35rem;
   }
 }
 

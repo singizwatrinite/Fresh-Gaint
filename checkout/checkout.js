@@ -56,7 +56,7 @@ function showThankYouModal(orderData) {
   if (!modal) return;
 
   const orderId = orderData?.data?.displayId || (orderData?.data?.id ? `#ORD-${orderData.data.id.slice(0, 5).toUpperCase()}` : "");
-  const p = modal.querySelector("p");
+  const p = document.getElementById("thankyouMsg") || modal.querySelector(".thankyou-order-msg") || modal.querySelector("p");
   if (p && orderId) {
     p.innerHTML = `Order Reference: <strong style="color: #1f7a5a; font-size: 1.1em;">${orderId}</strong><br>Your fresh groceries are on their way. We appreciate your trust in Fresh Link.`;
   }
