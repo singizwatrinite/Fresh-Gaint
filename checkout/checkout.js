@@ -198,12 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const terms = document.getElementById("termsAgree");
-      if (terms && !terms.checked) {
-        showCheckoutAlert("Please agree to the Terms and Privacy Policy.");
-        return;
-      }
-
       const payment = document.querySelector('input[name="payment"]:checked');
       if (!payment) {
         showCheckoutAlert("Please select a payment method.");
