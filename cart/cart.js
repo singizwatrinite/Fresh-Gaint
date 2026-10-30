@@ -99,12 +99,7 @@ checkoutBtn.onclick = () => {
   const cart = window.getCart();
   if (cart.length === 0) return;
 
-  // Requirement 2: Require login or registration if not authenticated
-  if (typeof window.isCustomerLoggedIn === "function" && !window.isCustomerLoggedIn()) {
-    window.location.href = "../login/login.html?tab=login&redirect=../checkout/checkout.html";
-    return;
-  }
-
+  // True Guest Checkout: allow guests and logged-in customers alike to proceed
   window.location.href = "../checkout/checkout.html";
 };
 

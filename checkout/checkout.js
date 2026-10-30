@@ -51,9 +51,21 @@ function renderCheckoutSummary() {
   if (totalEl) totalEl.innerText = "RWF " + (subtotal + deliveryFee).toLocaleString();
 }
 
-function showThankYouModal() {
+function showThankYouModal(orderData) {
   const modal = document.getElementById("thankyou-modal");
-  if (modal) modal.classList.remove("hidden");
+  if (!modal) return;
+
+  const orderId = orderData?.data?.displayId || (orderData?.data?.id ? `#ORD-${orderData.data.id.slice(0, 5).toUpperCase()}` : "");
+  const p = modal.querySelector("p");
+  if (p && orderId) {
+    p.innerHTML = `Order Reference: <strong style="color: #1f7a5a; font-size: 1.1em;">${orderId}</strong><br>Your fresh groceries are on their way. We appreciate your trust in Fresh Link.`;
+  }
+  const homeBtn = document.getElementById("thankyou-home-btn");
+  if (homeBtn) {
+    const isAuth = typeof window.isCustomerLoggedIn === "function" && window.isCustomerLoggedIn();
+    homeBtn.textContent = isAuth ? "View My Orders" : "Continue Shopping";
+  }
+  modal.classList.remove("hidden");
 }
 
 function closeThankYouAndRedirect() {
@@ -63,7 +75,40 @@ function closeThankYouAndRedirect() {
     localStorage.removeItem("fruitiva_user_cart_" + user.id);
   }
   window.updateCartBadges();
-  window.location.href = "../orders/myorders.html";
+
+  const isAuth = typeof window.isCustomerLoggedIn === "function" && window.isCustomerLoggedIn();
+  if (isAuth) {
+    window.location.href = "../orders/myorders.html";
+  } else {
+    window.location.href = "../home/home.html";
+  }
+}
+
+function showCheckoutAlert(message, type = "error") {
+  let alertBox = document.getElementById("checkout-alert");
+  if (!alertBox) {
+    alertBox = document.createElement("div");
+    alertBox.id = "checkout-alert";
+    const container = document.querySelector(".checkout-container");
+    if (container && container.parentElement) {
+      container.parentElement.insertBefore(alertBox, container);
+    }
+  }
+  const isErr = type === "error";
+  alertBox.style.cssText = `max-width: 1120px; margin: 0 auto 24px auto; padding: 14px 20px; border-radius: 14px; font-size: 15px; font-weight: 500; display: flex; align-items: center; gap: 12px; transition: all 0.3s ease; ${
+    isErr
+      ? "background: #fef2f2; color: #991b1b; border: 1px solid #f87171;"
+      : "background: #f0fdf4; color: #166534; border: 1px solid #86efac;"
+  }`;
+  alertBox.innerHTML = `<i class="fa-solid ${isErr ? "fa-circle-exclamation" : "fa-circle-check"}" style="font-size: 18px;"></i> <span>${message}</span>`;
+  alertBox.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function clearCheckoutAlert() {
+  const alertBox = document.getElementById("checkout-alert");
+  if (alertBox) {
+    alertBox.remove();
+  }
 }
 
 function populateOrderHiddenFields(form) {
@@ -97,16 +142,11 @@ function populateOrderHiddenFields(form) {
 
   summaryField.value = summary || "Cart is empty";
   totalField.value = totalEl ? totalEl.innerText : "";
-  paymentField.value = payment ? payment.value : "Not selected";
+  paymentField.value = "MTN MoMo";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Requirement 2: Check authentication on checkout page
-  if (typeof window.isCustomerLoggedIn === "function" && !window.isCustomerLoggedIn()) {
-    window.location.href = "../login/login.html?tab=login&redirect=../checkout/checkout.html";
-    return;
-  }
-
+  // Allow both guest and authenticated customers to access checkout
   renderCheckoutSummary();
   window.updateCartBadges();
 
@@ -120,8 +160,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("checkoutForm");
   const thankYouBtn = document.getElementById("thankyou-home-btn");
 
-  // Prefill authenticated customer details
-  if (typeof window.getCustomerUser === "function") {
+  // Prefill authenticated customer details if logged in
+  const isAuth = typeof window.isCustomerLoggedIn === "function" && window.isCustomerLoggedIn();
+  if (isAuth && typeof window.getCustomerUser === "function") {
     const user = window.getCustomerUser();
     if (user) {
       if (email && user.email) email.value = user.email;
@@ -149,22 +190,23 @@ document.addEventListener("DOMContentLoaded", () => {
   if (form) {
     form.addEventListener("submit", async e => {
       e.preventDefault();
+      clearCheckoutAlert();
 
       const cart = window.getCart();
       if (cart.length === 0) {
-        alert("Your cart is empty. Please add items to checkout.");
+        showCheckoutAlert("Your cart is empty. Please add items to checkout.");
         return;
       }
 
       const terms = document.getElementById("termsAgree");
       if (terms && !terms.checked) {
-        alert("Please agree to the Terms and Privacy Policy.");
+        showCheckoutAlert("Please agree to the Terms and Privacy Policy.");
         return;
       }
 
       const payment = document.querySelector('input[name="payment"]:checked');
       if (!payment) {
-        alert("Please select a payment method.");
+        showCheckoutAlert("Please select a payment method.");
         return;
       }
 
@@ -182,9 +224,31 @@ document.addEventListener("DOMContentLoaded", () => {
       const gate = (fd.get("gate") || "").toString().trim();
       const fullAddress = [district, sector, cell, village, gate].filter(Boolean).join(", ");
       const customerPhone = (fd.get("phone") || "").toString().trim();
+      const customerEmail = (fd.get("email") || "").toString().trim();
+      const firstNameVal = (fd.get("firstName") || "").toString().trim();
+      const lastNameVal = (fd.get("lastName") || "").toString().trim();
+      const fullNameVal = `${firstNameVal} ${lastNameVal}`.trim();
 
       if (!fullAddress) {
-        alert("Please provide your delivery location.");
+        showCheckoutAlert("Please provide your delivery location (District, Sector, Cell, and Village).");
+        if (placeBtn) { placeBtn.disabled = false; placeBtn.textContent = "Place Order"; }
+        return;
+      }
+
+      if (!customerPhone || customerPhone.length < 6) {
+        showCheckoutAlert("Please provide a valid phone number for delivery updates.");
+        if (placeBtn) { placeBtn.disabled = false; placeBtn.textContent = "Place Order"; }
+        return;
+      }
+
+      if (!customerEmail || !customerEmail.includes("@")) {
+        showCheckoutAlert("Please enter a valid email address.");
+        if (placeBtn) { placeBtn.disabled = false; placeBtn.textContent = "Place Order"; }
+        return;
+      }
+
+      if (!fullNameVal) {
+        showCheckoutAlert("Please enter your name.");
         if (placeBtn) { placeBtn.disabled = false; placeBtn.textContent = "Place Order"; }
         return;
       }
@@ -193,33 +257,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // ── Send to FreshLink Backend Database ──
       try {
-        const token = window.getCustomerToken();
+        const token = typeof window.getCustomerToken === "function" ? window.getCustomerToken() : null;
+        const customerLoggedIn = typeof window.isCustomerLoggedIn === "function" && window.isCustomerLoggedIn();
+        const hasValidAuth = Boolean(customerLoggedIn && token && token !== "null" && token !== "undefined");
         const backendBase = typeof BACKEND_URL !== "undefined" ? BACKEND_URL : "http://localhost:4000";
 
-        // Map payment option to backend format
-        let paymentFormatted = "Cash";
-        if (payment.value === "momo") paymentFormatted = "MTN MoMo";
-        else if (payment.value === "airtel") paymentFormatted = "Card";
-        else if (payment.value === "bank") paymentFormatted = "Card";
+        // Map payment option to backend format (MTN MoMo)
+        let paymentFormatted = "MTN MoMo";
+        if (payment && payment.value === "momo") paymentFormatted = "MTN MoMo";
+
+        const headers = {
+          "Content-Type": "application/json"
+        };
+        // ONLY include Authorization header if customer has a verified active token; NEVER send Bearer null
+        if (hasValidAuth) {
+          headers["Authorization"] = "Bearer " + token;
+        }
+
+        const orderPayload = {
+          deliveryAddress: fullAddress,
+          phone: customerPhone,
+          paymentMethod: paymentFormatted,
+          currency: "RWF",
+          items: cart.map(item => ({
+            productId: item._uuid || item.id,
+            quantity: item.qty || 1,
+            name: item.name
+          }))
+        };
+
+        // For guest checkouts, supply guest contact fields
+        if (!hasValidAuth) {
+          orderPayload.guestName = fullNameVal;
+          orderPayload.guestEmail = customerEmail;
+        }
 
         const orderRes = await fetch(backendBase + "/api/orders", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + token
-          },
-          body: JSON.stringify({
-            deliveryAddress: fullAddress,
-            phone: customerPhone,
-            paymentMethod: paymentFormatted,
-            currency: "RWF",
-            items: cart.map(item => ({
-              productId: item._uuid || item.id,
-              quantity: item.qty || 1,
-              price: item.price,
-              name: item.name
-            }))
-          })
+          headers,
+          body: JSON.stringify(orderPayload)
         });
 
         const orderData = await orderRes.json();
@@ -233,8 +309,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const subtotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
         sendToSheets("order", {
           orderId: orderData.data?.id || "",
-          name: `${fd.get("firstName") || ""} ${fd.get("lastName") || ""}`.trim(),
-          email: fd.get("email") || "",
+          name: fullNameVal,
+          email: customerEmail,
           phone: customerPhone,
           address: fullAddress,
           note: fd.get("note") || "",
@@ -248,16 +324,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Clear active cart & user cart
         localStorage.removeItem("fruitiva_cart");
-        const user = window.getCustomerUser();
+        const user = typeof window.getCustomerUser === "function" ? window.getCustomerUser() : null;
         if (user && user.id) {
           localStorage.removeItem("fruitiva_user_cart_" + user.id);
         }
         window.updateCartBadges();
 
-        showThankYouModal();
+        clearCheckoutAlert();
+        showThankYouModal(orderData);
         form.reset();
       } catch (err) {
-        alert("Order Error: " + err.message);
+        showCheckoutAlert("Order Error: " + err.message);
       } finally {
         if (placeBtn) {
           placeBtn.disabled = false;

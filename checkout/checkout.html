@@ -60,109 +60,133 @@
 
 <section class="checkout-section">
    <div class="checkout-overlay">
-  <h1 class="checkout-title">Secure Checkout</h1>
+  <h1 class="checkout-title"><i class="fa-solid fa-shield-halved"></i> Secure Checkout</h1>
 
   <div class="checkout-container">
 
     <!-- LEFT -->
     <div class="checkout-left">
-      <h3 class="section-title">Personal Information</h3>
+      <h3 class="section-title"><i class="fa-regular fa-user"></i> Personal Information</h3>
 
       <form id="checkoutForm" method="POST">
         <input type="hidden" name="_subject" value="New Grocery Order">
         <input type="hidden" name="_captcha" value="false">
-        <input type="email" id="email" name="email" placeholder="Email address" required>
-        <small class="error" id="emailError"></small>
 
-        <div class="input-row">
-          <input type="text" id="firstName" name="firstName" placeholder="First name" required>
-          <input type="text" id="lastName" name="lastName" placeholder="Last name" required>
-        </div>
-
-        <input type="tel" id="phone" name="phone" placeholder="Phone number" required>
-
-        <h4 class="location-title">Delivery Location</h4>
-
-        <div class="input-row">
-          <input type="text" id="district" name="district" placeholder="District" required>
-          <input type="text" id="sector" name="sector" placeholder="Sector" required>
+        <div class="form-group">
+          <label class="field-label" for="email">Email Address <span class="required">*</span></label>
+          <input type="email" id="email" name="email" placeholder="e.g. name@example.com" required>
+          <small class="error" id="emailError"></small>
         </div>
 
         <div class="input-row">
-          <input type="text" id="cell" name="cell" placeholder="Cell" required>
-          <input type="text" id="village" name="village" placeholder="Village" required>
+          <div class="form-group flex-1">
+            <label class="field-label" for="firstName">First Name <span class="required">*</span></label>
+            <input type="text" id="firstName" name="firstName" placeholder="First name" required>
+          </div>
+          <div class="form-group flex-1">
+            <label class="field-label" for="lastName">Last Name <span class="required">*</span></label>
+            <input type="text" id="lastName" name="lastName" placeholder="Last name" required>
+          </div>
         </div>
 
-        <input type="text" id="gate" name="gate" placeholder="Gate / House Number">
+        <div class="form-group">
+          <label class="field-label" for="phone">Phone Number (MTN / Airtel) <span class="required">*</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="078... or 079..." required>
+        </div>
+
+        <h4 class="location-title"><i class="fa-solid fa-location-dot"></i> Delivery Location in Kigali</h4>
+
+        <div class="input-row">
+          <div class="form-group flex-1">
+            <label class="field-label" for="district">District <span class="required">*</span></label>
+            <input type="text" id="district" name="district" placeholder="e.g. Gasabo, Kicukiro" required>
+          </div>
+          <div class="form-group flex-1">
+            <label class="field-label" for="sector">Sector <span class="required">*</span></label>
+            <input type="text" id="sector" name="sector" placeholder="e.g. Kimironko, Remera" required>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group flex-1">
+            <label class="field-label" for="cell">Cell <span class="required">*</span></label>
+            <input type="text" id="cell" name="cell" placeholder="e.g. Kibagabaga" required>
+          </div>
+          <div class="form-group flex-1">
+            <label class="field-label" for="village">Village <span class="required">*</span></label>
+            <input type="text" id="village" name="village" placeholder="Village name" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label" for="gate">Gate / House Number / Landmark</label>
+          <input type="text" id="gate" name="gate" placeholder="e.g. KG 123 St, House #14, near Market">
+        </div>
 
         <div class="note-box">
-          <label>
-            <input type="checkbox" id="addNote" name="addNote"> Add a note to your order
+          <label class="note-toggle" for="addNote">
+            <input type="checkbox" id="addNote" name="addNote">
+            <span><i class="fa-regular fa-comment-dots"></i> Add delivery instructions or note</span>
           </label>
-          <textarea id="noteField" name="note" placeholder="Write delivery instructions..."></textarea>
+          <textarea id="noteField" name="note" placeholder="Write specific delivery instructions for the rider..."></textarea>
         </div>
       </form>
     </div>
 
     <!-- RIGHT -->
     <div class="checkout-right">
-      <h3 class="section-title">Order Summary</h3>
+      <h3 class="section-title"><i class="fa-solid fa-basket-shopping"></i> Order Summary</h3>
       <div id="checkout-items" class="checkout-items-list"></div>
+      
       <div class="checkout-totals">
-        <div class="summary-row"><span>Subtotal</span><span id="checkout-subtotal">RWF 0</span></div>
-        <div class="summary-row"><span>Delivery</span><span id="checkout-delivery">RWF 1,500</span></div>
-        <div class="summary-row total"><span>Total</span><span id="checkout-total">RWF 0</span></div>
+        <div class="summary-row"><span>Items Subtotal</span><span id="checkout-subtotal">RWF 0</span></div>
+        <div class="summary-row"><span>Delivery Fee (Kigali)</span><span id="checkout-delivery">RWF 1,500</span></div>
+        <div class="summary-row total"><span>Total to Pay</span><span id="checkout-total">RWF 0</span></div>
       </div>
 
-      <h3 class="section-title" style="margin-top: 24px;">Payment Method</h3>
+      <h3 class="section-title payment-section-title"><i class="fa-solid fa-credit-card"></i> Payment Method</h3>
 
-      <label class="payment-option">
-        <input type="radio" name="payment" value="momo" required>
-        <img src="../images/momo-logo.svg" alt="MTN MoMo">
-        <div>
-          <strong>MTN MoMo</strong>
-          <p>*182*8*1*1234#</p>
+      <!-- MTN MoMo Exclusive Payment Option -->
+      <div class="momo-card-wrapper">
+        <label class="payment-option momo-option selected">
+          <input type="radio" name="payment" value="momo" checked required>
+          <div class="payment-logo-wrap">
+            <img src="../images/momo-logo.svg" alt="MTN MoMo" class="momo-logo-img">
+          </div>
+          <div class="payment-details">
+            <div class="payment-header-line">
+              <strong>MTN Mobile Money</strong>
+              <span class="momo-verified-badge"><i class="fa-solid fa-check"></i> Primary</span>
+            </div>
+            <p class="payment-desc">Pay instantly with MTN MoMo in Rwanda</p>
+          </div>
+        </label>
+        
+        <div class="momo-help-box">
+          <div class="momo-help-header">
+            <i class="fa-solid fa-info-circle"></i> How to pay with MoMo:
+          </div>
+          <ol class="momo-steps">
+            <li>Place your order with delivery details.</li>
+            <li>Dial <strong>*182*1*1*0785477865*16000#</strong> or approve the payment prompt on your MTN phone.</li>
+            <li>Your groceries are dispatched right after confirmation!</li>
+          </ol>
         </div>
-      </label>
+      </div>
 
-      <label class="payment-option">
-        <input type="radio" name="payment" value="airtel">
-        <img src="../images/airtel-logo.svg" alt="Airtel Money">
-        <div>
-          <strong>Airtel Money</strong>
-          <p>*182*8*1*1234#</p>
-        </div>
-      </label>
-
-      <label class="payment-option">
-        <input type="radio" name="payment" value="bank">
-        <img src="../images/bank-logo.svg" alt="Bank Transfer">
-        <div>
-          <strong>Bank Transfer</strong>
-          <p>Account: 1234 5678</p>
-        </div>
-      </label>
-
-      <label class="payment-option">
-        <input type="radio" name="payment" value="cod">
-        <img src="../images/cash-logo.svg" alt="Cash on Delivery">
-        <div>
-          <strong>Cash on Delivery</strong>
-        </div>
-      </label>
     </div>
   </div>
 
   <div class="terms-box">
     <label>
       <input type="checkbox" id="termsAgree" required>
-      I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>
+      <span>I agree to the <a href="../delivery/deliveryterms.html" target="_blank">Terms of Delivery</a> and <a href="../delivery/return.html" target="_blank">Return Policy</a></span>
     </label>
   </div>
 
   <div class="checkout-buttons">
-    <a href="../cart/cart.html" class="return-btn">← Return to Cart</a>
-    <button type="submit" form="checkoutForm" class="place-btn" id="placeOrderBtn">Place Order</button>
+    <a href="../cart/cart.html" class="return-btn"><i class="fa-solid fa-arrow-left"></i> Return to Cart</a>
+    <button type="submit" form="checkoutForm" class="place-btn" id="placeOrderBtn"><i class="fa-solid fa-lock"></i> Place Order</button>
   </div>
 </div>
 </section>
