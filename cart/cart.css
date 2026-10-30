@@ -187,29 +187,6 @@ label {
     display: block;
 }
 
-/* PROMO */
-.promo {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.promo input {
-    flex: 1;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-}
-
-.promo button {
-    background: #2e7d32;
-    color: #fff;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
 /* EMPTY CART */
 .empty-cart {
     display: none;

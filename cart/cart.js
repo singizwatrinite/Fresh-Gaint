@@ -1,14 +1,11 @@
 const deliveryFee = 1500; // in RWF (aligned with checkout.js)
 const minimumOrder = 5000; // in RWF
-let discount = 0;
 
 const cartItemsEl = document.getElementById("cartItems");
 const emptyCart = document.getElementById("emptyCart");
 const subtotalEl = document.getElementById("subtotal");
 const totalEl = document.getElementById("total");
 const checkoutBtn = document.getElementById("checkoutBtn");
-const promoBtn = document.getElementById("applyPromo");
-const promoInput = document.getElementById("promoInput");
 const toast = document.getElementById("toast");
 
 function showMinToast(message) {
@@ -56,9 +53,7 @@ function renderCart() {
 
 function updateTotals() {
   const cart = window.getCart();
-  let subtotal = cart.reduce((sum, item) => sum + (item.price || 0) * item.qty, 0);
-  subtotal -= discount;
-  if (subtotal < 0) subtotal = 0;
+  const subtotal = cart.reduce((sum, item) => sum + (item.price || 0) * item.qty, 0);
 
   subtotalEl.innerText = "RWF " + subtotal.toLocaleString();
   totalEl.innerText = "RWF " + (subtotal + deliveryFee).toLocaleString();
@@ -86,14 +81,6 @@ cartItemsEl.addEventListener("click", e => {
   window.saveCart(cart);
   renderCart();
 });
-
-promoBtn.onclick = () => {
-  const code = promoInput.value.trim().toUpperCase();
-  discount = code === "FRESH10" ? 2000 : 0;
-  if (code && code !== "FRESH10") showMinToast("Invalid promo code");
-  else if (code === "FRESH10") showMinToast("Promo applied! 2,000 RWF off");
-  updateTotals();
-};
 
 checkoutBtn.onclick = () => {
   const cart = window.getCart();
