@@ -111,6 +111,22 @@ function clearCheckoutAlert() {
   }
 }
 
+function showVerifyAlert(message) {
+  const alertEl = document.getElementById("verifyAlert");
+  if (alertEl) {
+    alertEl.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> <span>${message}</span>`;
+    alertEl.classList.remove("hidden");
+  }
+}
+
+function clearVerifyAlert() {
+  const alertEl = document.getElementById("verifyAlert");
+  if (alertEl) {
+    alertEl.innerHTML = "";
+    alertEl.classList.add("hidden");
+  }
+}
+
 function populateOrderHiddenFields(form) {
   const cart = window.getCart();
   const summary = cart.map(item => `${item.name} x${item.qty} - ${(item.qty * item.price).toLocaleString()} RWF`).join("\n");
@@ -187,8 +203,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const verifyModal = document.getElementById("verify-modal");
+  const verifyForm = document.getElementById("verifyForm");
+  const verifyCancelBtn = document.getElementById("verifyCancelBtn");
+  const confirmOrderBtn = document.getElementById("confirmOrderBtn");
+
+  if (verifyCancelBtn && verifyModal) {
+    verifyCancelBtn.addEventListener("click", () => {
+      verifyModal.classList.add("hidden");
+    });
+  }
+
+  if (verifyModal) {
+    verifyModal.addEventListener("click", e => {
+      if (e.target === verifyModal) {
+        verifyModal.classList.add("hidden");
+      }
+    });
+  }
+
   if (form) {
-    form.addEventListener("submit", async e => {
+    form.addEventListener("submit", e => {
       e.preventDefault();
       clearCheckoutAlert();
 
@@ -202,12 +237,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!payment) {
         showCheckoutAlert("Please select a payment method.");
         return;
-      }
-
-      const placeBtn = document.getElementById("placeOrderBtn");
-      if (placeBtn) {
-        placeBtn.disabled = true;
-        placeBtn.textContent = "Placing Order...";
       }
 
       const fd = new FormData(form);
@@ -225,29 +254,87 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!fullAddress) {
         showCheckoutAlert("Please provide your delivery location (District, Sector, Cell, and Village).");
-        if (placeBtn) { placeBtn.disabled = false; placeBtn.textContent = "Place Order"; }
         return;
       }
 
       if (!customerPhone || customerPhone.length < 6) {
         showCheckoutAlert("Please provide a valid phone number for delivery updates.");
-        if (placeBtn) { placeBtn.disabled = false; placeBtn.textContent = "Place Order"; }
         return;
       }
 
       if (!customerEmail || !customerEmail.includes("@")) {
         showCheckoutAlert("Please enter a valid email address.");
-        if (placeBtn) { placeBtn.disabled = false; placeBtn.textContent = "Place Order"; }
         return;
       }
 
       if (!fullNameVal) {
         showCheckoutAlert("Please enter your name.");
-        if (placeBtn) { placeBtn.disabled = false; placeBtn.textContent = "Place Order"; }
         return;
       }
 
+      // Populate hidden fields
       populateOrderHiddenFields(form);
+
+      // Open Payment Verification Modal
+      clearVerifyAlert();
+      const payerNameInput = document.getElementById("payerName");
+      const payerPhoneInput = document.getElementById("payerPhone");
+
+      if (payerNameInput && !payerNameInput.value.trim()) {
+        payerNameInput.value = fullNameVal;
+      }
+      if (payerPhoneInput && !payerPhoneInput.value.trim()) {
+        payerPhoneInput.value = customerPhone;
+      }
+
+      if (verifyModal) {
+        verifyModal.classList.remove("hidden");
+        if (payerNameInput) payerNameInput.focus();
+      }
+    });
+  }
+
+  if (verifyForm) {
+    verifyForm.addEventListener("submit", async e => {
+      e.preventDefault();
+      clearVerifyAlert();
+
+      const payerNameInput = document.getElementById("payerName");
+      const payerPhoneInput = document.getElementById("payerPhone");
+      const payerNameVal = (payerNameInput ? payerNameInput.value : "").trim();
+      const payerPhoneVal = (payerPhoneInput ? payerPhoneInput.value : "").trim();
+
+      // Mandatory validation for payment verification
+      if (!payerNameVal || payerNameVal.length < 2) {
+        showVerifyAlert("Please enter the account name used for the payment.");
+        if (payerNameInput) payerNameInput.focus();
+        return;
+      }
+
+      if (!payerPhoneVal || payerPhoneVal.length < 6) {
+        showVerifyAlert("Please enter the phone number used to make the payment.");
+        if (payerPhoneInput) payerPhoneInput.focus();
+        return;
+      }
+
+      if (confirmOrderBtn) {
+        confirmOrderBtn.disabled = true;
+        confirmOrderBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Confirming Order...`;
+      }
+
+      const cart = window.getCart();
+      const fd = new FormData(form);
+      const district = (fd.get("district") || "").toString().trim();
+      const sector = (fd.get("sector") || "").toString().trim();
+      const cell = (fd.get("cell") || "").toString().trim();
+      const village = (fd.get("village") || "").toString().trim();
+      const gate = (fd.get("gate") || "").toString().trim();
+      const fullAddress = [district, sector, cell, village, gate].filter(Boolean).join(", ");
+      const customerPhone = (fd.get("phone") || "").toString().trim();
+      const customerEmail = (fd.get("email") || "").toString().trim();
+      const firstNameVal = (fd.get("firstName") || "").toString().trim();
+      const lastNameVal = (fd.get("lastName") || "").toString().trim();
+      const fullNameVal = `${firstNameVal} ${lastNameVal}`.trim();
 
       // ── Send to FreshLink Backend Database ──
       try {
@@ -256,7 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const hasValidAuth = Boolean(customerLoggedIn && token && token !== "null" && token !== "undefined");
         const backendBase = typeof BACKEND_URL !== "undefined" ? BACKEND_URL : "http://localhost:4000";
 
-        // Map payment option to backend format (MTN MoMo)
+        const payment = document.querySelector('input[name="payment"]:checked');
         let paymentFormatted = "MTN MoMo";
         if (payment && payment.value === "momo") paymentFormatted = "MTN MoMo";
 
@@ -268,8 +355,10 @@ document.addEventListener("DOMContentLoaded", () => {
           headers["Authorization"] = "Bearer " + token;
         }
 
+        const deliveryWithPayment = `${fullAddress} [Paid by: ${payerNameVal}, Tel: ${payerPhoneVal}]`;
+
         const orderPayload = {
-          deliveryAddress: fullAddress,
+          deliveryAddress: deliveryWithPayment,
           phone: customerPhone,
           paymentMethod: paymentFormatted,
           currency: "RWF",
@@ -306,8 +395,10 @@ document.addEventListener("DOMContentLoaded", () => {
           name: fullNameVal,
           email: customerEmail,
           phone: customerPhone,
+          payerName: payerNameVal,
+          payerPhone: payerPhoneVal,
           address: fullAddress,
-          note: fd.get("note") || "",
+          note: `${fd.get("note") ? fd.get("note") + " | " : ""}Payment: ${payerNameVal} (${payerPhoneVal})`,
           items: itemsList,
           itemsCount: cart.reduce((s, i) => s + i.qty, 0),
           subtotal: subtotal.toLocaleString() + " RWF",
@@ -324,15 +415,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         window.updateCartBadges();
 
+        if (verifyModal) {
+          verifyModal.classList.add("hidden");
+        }
         clearCheckoutAlert();
         showThankYouModal(orderData);
         form.reset();
+        verifyForm.reset();
       } catch (err) {
-        showCheckoutAlert("Order Error: " + err.message);
+        showVerifyAlert("Order Error: " + err.message);
       } finally {
-        if (placeBtn) {
-          placeBtn.disabled = false;
-          placeBtn.textContent = "Place Order";
+        if (confirmOrderBtn) {
+          confirmOrderBtn.disabled = false;
+          confirmOrderBtn.innerHTML = `<i class="fa-solid fa-check"></i> Confirm & Place Order`;
         }
       }
     });

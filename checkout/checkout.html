@@ -186,10 +186,42 @@
 
   <div class="checkout-buttons">
     <a href="../cart/cart.html" class="return-btn"><i class="fa-solid fa-arrow-left"></i> Return to Cart</a>
-    <button type="submit" form="checkoutForm" class="place-btn" id="placeOrderBtn"><i class="fa-solid fa-lock"></i> Place Order</button>
+    <button type="submit" form="checkoutForm" class="place-btn" id="placeOrderBtn"><i class="fa-solid fa-shield-halved"></i> Continue Verify</button>
   </div>
 </div>
 </section>
+
+<!-- PAYMENT VERIFICATION MODAL -->
+<div id="verify-modal" class="checkout-modal hidden">
+  <div class="checkout-modal-box verify-modal-box">
+    <div class="verify-modal-header">
+      <div class="checkout-modal-icon verify-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+      <h3>Payment Verification</h3>
+      <p>Please enter the account name and phone number used to make the payment for this order.</p>
+    </div>
+
+    <div class="verify-alert hidden" id="verifyAlert"></div>
+
+    <form id="verifyForm">
+      <div class="form-group">
+        <label class="field-label" for="payerName">Payer Account Name <span class="required">*</span></label>
+        <input type="text" id="payerName" placeholder="e.g. Jean Bosco" required autocomplete="name">
+      </div>
+
+      <div class="form-group">
+        <label class="field-label" for="payerPhone">Payer Phone Number <span class="required">*</span></label>
+        <input type="tel" id="payerPhone" placeholder="078... or 079..." required autocomplete="tel">
+      </div>
+
+      <div class="verify-modal-actions">
+        <button type="button" class="verify-cancel-btn" id="verifyCancelBtn">Back</button>
+        <button type="submit" class="place-btn verify-submit-btn" id="confirmOrderBtn">
+          <i class="fa-solid fa-check"></i> Confirm & Place Order
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <!-- THANK YOU MODAL -->
 <div id="thankyou-modal" class="checkout-modal hidden">

@@ -560,7 +560,7 @@ textarea:focus {
 }
 
 /* ===============================
-   THANK YOU MODAL
+   THANK YOU & VERIFY MODALS
 ================================ */
 .checkout-modal {
   position: fixed;
@@ -586,6 +586,88 @@ textarea:focus {
   width: 100%;
   text-align: center;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+}
+
+.verify-modal-box {
+  max-width: 480px;
+  text-align: left;
+}
+
+.verify-modal-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.verify-modal-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.verify-modal-header p {
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+.verify-icon {
+  background: #dbeafe;
+  color: #0284c7;
+  width: 72px;
+  height: 72px;
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.verify-alert {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  padding: 11px 14px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  margin-bottom: 18px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.verify-alert.hidden {
+  display: none;
+}
+
+.verify-modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  align-items: center;
+}
+
+.verify-cancel-btn {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1.5px solid #cbd5e1;
+  padding: 14px 22px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.verify-cancel-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.verify-submit-btn {
+  padding: 14px 24px;
+  font-size: 15px;
+  flex: 1;
+  justify-content: center;
 }
 
 .checkout-modal-icon {
