@@ -131,21 +131,32 @@
         <h2 id="active-category" class="text-3xl font-black">All Products</h2>
         <p id="products-count" class="text-sm text-gray-500 mt-1 font-medium">Loading items...</p>
     </div>
-    <div class="flex items-center gap-3">
-        <label for="shop-sort" class="text-sm font-bold text-gray-600 whitespace-nowrap"><i class="fas fa-arrow-down-wide-short text-green-600 mr-1"></i>Sort by:</label>
-        <select id="shop-sort" aria-label="Sort products" class="bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition cursor-pointer">
-            <option value="newest">Newest First</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-            <option value="name-asc">Name: A to Z</option>
-            <option value="name-desc">Name: Z to A</option>
-        </select>
+    <div class="flex items-center gap-3 flex-wrap">
+        <div class="flex items-center gap-1.5">
+            <label for="shop-page-size" class="text-sm font-bold text-gray-600 whitespace-nowrap">Show:</label>
+            <select id="shop-page-size" aria-label="Items per page" class="bg-white border border-gray-200 rounded-xl px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition cursor-pointer">
+                <option value="12">12 per page</option>
+                <option value="24">24 per page</option>
+            </select>
+        </div>
+        <div class="flex items-center gap-1.5">
+            <label for="shop-sort" class="text-sm font-bold text-gray-600 whitespace-nowrap"><i class="fas fa-arrow-down-wide-short text-green-600 mr-1"></i>Sort by:</label>
+            <select id="shop-sort" aria-label="Sort products" class="bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition cursor-pointer">
+                <option value="newest">Newest First</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="name-asc">Name: A to Z</option>
+                <option value="name-desc">Name: Z to A</option>
+            </select>
+        </div>
     </div>
 </div>
 
 <div id="shop-error-container" class="hidden mb-6"></div>
 
 <div id="shop-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8"></div>
+
+<div id="shop-pagination" class="mt-10"></div>
 
 </div>
 </div>
